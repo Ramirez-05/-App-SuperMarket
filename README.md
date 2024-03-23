@@ -1,6 +1,6 @@
 # React + Vite
 
-to start the project   
+!----------to start the project-----!   
 
 
 cd App-SuperMarket  
