@@ -1,14 +1,11 @@
 import React from 'react';
-
-const Login = () => {
+//login function, does not receive any parameters
+export default function Login() {
   return (
-    <div className="bg-gray-50 flex justify-center gap-0">
 
-    
-      {//Primer Div, de la derecha
-      }
-      <div className=" h-80 -mx-8 min-h-screen flex items-center justify-start px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full mx-auto bg-white drop-shadow-2xl rounded-lg p-8">
+    <div className="w-auto h-screen bg-black flex justify-center gap-0">
+      <section className=" h-80 -mx-8 min-h-screen flex items-center justify-start px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-md w-full mx-auto bg-white drop-shadow-2xl rounded-lg p-8 transition-transform transform hover:scale-110">
           <h2 className="text-center text-5xl font-extrabold text-gray-900">Iniciar sesión</h2>
           <form className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
@@ -48,29 +45,24 @@ const Login = () => {
           </form>
           <div>
             <p className="text-center text-sm text-gray-600 pt-5">
-              ¿No tienes una cuenta? <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">Crear una cuenta</a>
+              ¿No tienes una cuenta? <a className="font-medium text-indigo-600 hover:text-indigo-500">Crear una cuenta</a>
             </p>
           </div>
         </div>
-      </div>
+      </section>
+
       <div>
-  
-
-      {//Segundo Div, de la derecha
-      }
-
-<section className="-mx-8 min-h-screen flex items-center justify-end px-4 sm:px-6 lg:px-8">
-  <div className="grid max-w-md w-full mx-auto bg-white shadow-md rounded-lg p-8">
-    <h1 className="text-xs font-bold text-gray-900 ml-auto">Descubre más acerca de nosotros</h1>
-    <button className="mt-2 w-16 text-xs font-bold py-1 px-2 border border-indigo-600 rounded-md text-indigo-600 bg-white hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-auto">Vamos</button>
-    <img className="w-72 h-72" src="./public/imglogin.svg"/>
-  </div>
-</section>
-
+        {/* Segundo Div, de la derecha */}
+        <section className="-mx-8 min-h-screen flex items-center justify-end px-4 sm:px-6 lg:px-8 ">
+          <div className="grid max-w-md w-full mx-auto bg-white bg-gradient-to-r from-blue-400 to-purple-400 
+          rounded-xl shadow-2xl overflow-hidden p-8 space-y-8">
+            <h1 className="text-xs font-bold text-gray-900 ml-auto">Descubre más acerca de nosotros</h1>
+            <button className="w-16 text-xs font-bold py-1 px-2 border border-indigo-600 rounded-md text-indigo-600
+            bg-white hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-auto">Vamos</button>
+            <img className="w-72 h-72 transform hover:scale-105" src="./public/imglogin.svg" alt="Imagen de inicio de sesión" />
+          </div>
+        </section>
+      </div>
     </div>
-
-  </div>
   );
-};
-
-export default Login;
+}
