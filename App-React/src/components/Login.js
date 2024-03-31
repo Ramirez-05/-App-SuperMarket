@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import imglogin from '../assets/imglogin.svg'
+
 //login function, does not receive any parameters
 export default function Login() {
   return (
@@ -60,7 +62,7 @@ export default function Login() {
             <h1 className="text-xs font-bold text-gray-900 ml-auto">Descubre más acerca de nosotros</h1>
             <button className="w-16 text-xs font-bold py-1 px-2 border border-indigo-600 rounded-md text-indigo-600
             bg-white hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-auto">Vamos</button>
-            <img className="w-72 h-72 transform hover:scale-105" src="imglogin.svg" alt="Imagen de inicio de sesión" />
+            <img className="w-72 h-72 transform hover:scale-105" src={imglogin} alt="Imagen de inicio de sesión" />
           </div>
         </section>
       </div>

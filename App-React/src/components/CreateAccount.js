@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import imgcreateaccount from '../assets/imgcreateaccount.svg'
+import arrow from '../assets/arrow.svg'
 
 
 export default function CreateCount(){
@@ -9,11 +11,11 @@ export default function CreateCount(){
 <section className="-mx-8 min-h-screen flex items-center justify-end px-4 sm:px-6 lg:px-8 ">
   <div className="grid max-w-md w-full mx-auto bg-white  bg-gradient-to-r from-blue-400 to-purple-400 
   rounded-xl shadow-2xl overflow-hidden p-8 space-y-8">
-    <Link to="/"><img className="w-5 h-5" src='arrow.svg' alt="arrow"/></Link>
+    <Link to="/"><img className="w-5 h-5" src={arrow} alt="arrow"/></Link>
     <h1 className="text-xs font-bold text-gray-900 ml-auto">Descubre más acerca de nosotros</h1>
     <button className="w-16 text-xs font-bold py-1 px-2 border border-indigo-600 rounded-md text-indigo-600
      bg-white hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-auto">Vamos</button>
-    <img className="w-72 h-72 transform hover:scale-105" src="imgcreateaccount.svg" alt="imgcreateaccount"/>
+    <img className="w-72 h-72 transform hover:scale-105" src={imgcreateaccount} alt="imgcreateaccount"/>
   </div>
 </section>
       
