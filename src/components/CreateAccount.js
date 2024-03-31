@@ -20,7 +20,7 @@ export default function CreateCount(){
       
       {//right div
       }
-      <div className=" h-80 -mx-8 min-h-screen flex items-center justify-start px-4 sm:px-6 lg:px-8">
+      <div className=" h-80 -mx-8 min-h-screen flex items-center justify-start px-4 sm:px-6 lg:px-8 transition-transform transform hover:scale-110">
             <div className="max-w-md w-full mx-auto bg-white drop-shadow-2xl rounded-lg p-8 ">
           <h2 className="text-center text-4xl font-extrabold text-gray-900">Crear Cuenta</h2>
           <form className="mt-8 space-y-6" action="#" method="POST">
