@@ -12,4 +12,4 @@ class Person(Base):
     direccion = Column(String(255), nullable=False)
     telefono = Column(String(85), nullable=False)
 
-    usuarios = relationship("Usuario", back_populates="person")
+    usuarios = relationship("User", back_populates="person")

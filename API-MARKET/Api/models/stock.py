@@ -12,5 +12,5 @@ class Stock(Base):
     lote = Column(String(85), nullable=False)
     estado = Column(Boolean, nullable=False)
 
-    user = relationship("Usuario", back_populates="stock")
+    user = relationship("User", back_populates="stock")
     product = relationship("Producto", back_populates="stock")

@@ -1,11 +1,12 @@
-from Api.models.user import Usuario  
+from Api.models.user import User  
 from sqlalchemy.orm import Session  
 from core.security import verify_password 
 from Api.schemas.auth import AuthBase
 
+
 # Función para obtener un usuario por su dirección de correo electrónico
 def get_user_by_email(email: str, db: Session):
-    user = db.query(Usuario).filter(Usuario.correo == email).first()
+    user = db.query(User).filter(User.correo == email).first()
     return user
 
 # Función para autenticar un usuario

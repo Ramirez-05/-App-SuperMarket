@@ -9,5 +9,5 @@ class Rol(Base):
     nombre = Column(String(85), nullable=False)
     descripcion = Column(String(255), nullable=False)
 
-    usuarios = relationship("Usuario", back_populates="role")
+    usuarios = relationship("User", back_populates="role")
     

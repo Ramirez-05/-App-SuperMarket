@@ -4,7 +4,7 @@ from Api.models.base_class import Base
 from Api.models.person import Person
 from Api.models.role import Rol
 
-class Usuario(Base):
+class User(Base):
     __tablename__ = 'usuarios'
 
     id_usuario = Column(Integer, primary_key=True, autoincrement=True)
@@ -12,7 +12,7 @@ class Usuario(Base):
     correo = Column(String(255), nullable=False)
     contrasena = Column(String(255), nullable=False)
     id_role = Column(Integer, ForeignKey('roles.id_role'), nullable=False)
-    estado = Column(Boolean, nullable=False)
+    estado = Column(Boolean, default=True, nullable=False)
 
     person = relationship("Person", back_populates="usuarios")
     role = relationship("Rol", back_populates="usuarios")
