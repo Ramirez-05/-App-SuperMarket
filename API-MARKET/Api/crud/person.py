@@ -1,10 +1,11 @@
 from Api.models.person import Person
 from sqlalchemy.orm import Session
-from Api.schemas.person import PersonBase, PersonRead
+from Api.schemas.person import PersonBase
 from Api.schemas.role import RoleRead
 from Api.schemas.user import UserBase
 from Api.crud.user import create_new_user
 from fastapi import HTTPException
+from core.utils import get_person_by_cedula
 import sys
 
 def create_new_person_user(persona: PersonBase,user:UserBase,role:RoleRead ,db:Session):
@@ -28,10 +29,6 @@ def create_new_person_user(persona: PersonBase,user:UserBase,role:RoleRead ,db:S
 
 ###############################################################################################################
     
-def get_person_by_cedula(persona: PersonBase ,db:Session):
-    person = db.query(Person).filter(Person.cedula == persona.cedula).first()
-    return person
-
 def update_person(persona: PersonBase, db: Session):
     db_person = get_person_by_cedula(persona, db)
     if db_person is None:

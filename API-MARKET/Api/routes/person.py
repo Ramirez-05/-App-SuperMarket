@@ -12,7 +12,6 @@ router = APIRouter()
 async def add_person(persona: PersonBase,user:UserBase,role:RoleRead ,db: Session = Depends(get_session)):
     return create_new_person_user(persona,user,role,db)
 
-
 @router.put("/update-persona", response_model=PersonBase)
 async def fuction_update_person(persona: PersonBase, db:Session = Depends(get_session)):
     return update_person(persona, db)
