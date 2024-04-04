@@ -10,7 +10,7 @@ from Api.schemas.auth import Token
 router = APIRouter()
 
 # Se crea una instancia de OAuth2PasswordBearer para manejar el esquema de autenticación OAuth2
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/users/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 # Función para obtener el usuario actual basado en el token JWT proporcionado
 async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_session)):
