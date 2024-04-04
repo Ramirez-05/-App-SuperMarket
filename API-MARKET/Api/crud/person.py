@@ -1,5 +1,7 @@
 from Api.models.person import Person
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import OperationalError
+from sqlalchemy.sql import text
 from Api.schemas.person import PersonBase
 from Api.schemas.role import RoleRead
 from Api.schemas.user import UserBase
@@ -45,3 +47,13 @@ def update_person(persona: PersonBase, db: Session):
         db.rollback()
         print(f"error al actualizar persona: {str(e)}",file=sys.stderr)
         raise HTTPException(status_code=500,detail=f"no se pudo actualizar la persona: {str(e)}")    
+
+###############################################################################################################
+# Función para verificar si el servidor de base de datos está disponible y acepta conexiones
+def server_status(db):
+    try:
+        db.execute(text('SELECT 1'))
+        return True
+    except OperationalError:
+        return False
+
