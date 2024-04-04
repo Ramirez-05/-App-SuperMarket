@@ -17,3 +17,4 @@ def authenticate_user(credentials: AuthBase, db: Session):
     if not verify_password(credentials.password, user.contrasena):
         return False
     return user
+ 

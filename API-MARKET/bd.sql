@@ -18,10 +18,10 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE usuarios (
-    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario VARCHAR(255) PRIMARY KEY,
     id_persona INT NOT NULL,
     correo VARCHAR(255) NOT NULL,
-    contrasena VARCHAR(255) NOT NULL,
+    contrasena TEXT NOT NULL,
     id_role INT NOT NULL,
     estado TINYINT(1) NOT NULL,
     FOREIGN KEY (id_persona) REFERENCES persona(id_persona),
@@ -46,7 +46,7 @@ CREATE TABLE productos (
 
 CREATE TABLE stock (
     id_stock INT PRIMARY KEY AUTO_INCREMENT,
-    id_usuario INT NOT NULL,
+    id_usuario VARCHAR(255) NOT NULL,
     id_producto INT NOT NULL,
     cantidad INT NOT NULL,
     lote VARCHAR(85) NOT NULL,

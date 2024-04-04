@@ -49,11 +49,5 @@ def update_person(persona: PersonBase, db: Session):
         raise HTTPException(status_code=500,detail=f"no se pudo actualizar la persona: {str(e)}")    
 
 ###############################################################################################################
-# Función para verificar si el servidor de base de datos está disponible y acepta conexiones
-def server_status(db):
-    try:
-        db.execute(text('SELECT 1'))
-        return True
-    except OperationalError:
-        return False
+
 

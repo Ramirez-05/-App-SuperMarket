@@ -8,3 +8,9 @@ class UserCreate(UserBase):
     estado: bool = True
     id_persona: int 
     id_role: int 
+
+class UserRead(UserBase):
+    id_usuario: str
+    estado: bool
+    id_persona: int
+    id_role: int
