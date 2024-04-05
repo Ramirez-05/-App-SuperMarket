@@ -4,6 +4,8 @@ from Api.models.person import Person
 from Api.schemas.person import PersonBase
 from sqlalchemy.exc import OperationalError
 from sqlalchemy import text
+import secrets
+import string
 
 # Función para obtener una persona por su cédula
 def get_person_by_cedula(persona: PersonBase ,db:Session):
@@ -39,6 +41,16 @@ def userStatus(id_usuario: int, db: Session):
         return True
     else:
         return False
+    
+
+#funcion para generar un id de usuario aleatorio
+def generateuser_id(length=30):
+    #caracteres posibles para el id
+    characters = string.ascii_letters + string.digits
+    #generar el id aleatorio
+    random_id = ''.join(secrets.choice(characters) for _ in range(length))
+
+    return random_id
 
 
 

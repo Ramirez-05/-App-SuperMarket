@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const Auth = async (authData) => {
+ export const Auth = async (authData) => {
   console.log("ENTRO A LA FUNCION DE AXIOS");
   console.log("Esto es lo que recibe la funcion de axios", authData);
   console.log("Este es el primer valor de authData", authData.username);

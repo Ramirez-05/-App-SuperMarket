@@ -11,9 +11,10 @@ from core.utils import checkRole,serverStatus,userStatus
 
 
 router = APIRouter()
-
+print("ENTRO AL ARCHIVO RUTAS PERSONA")
 @router.post("/create-persona", response_model=PersonBase)
 async def add_person(persona: PersonBase,user:UserBase,role:RoleRead ,db: Session = Depends(get_session)):
+        print("Entro a la funcion crear persona")
         return create_new_person_user(persona,user,role,db)
 
 

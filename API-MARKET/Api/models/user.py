@@ -7,7 +7,7 @@ from Api.models.role import Rol
 class User(Base):
     __tablename__ = 'usuarios'
 
-    id_usuario = Column(Integer, primary_key=True, autoincrement=True)
+    id_usuario = Column(String(255), primary_key=True)
     id_persona = Column(Integer, ForeignKey('persona.id_persona'), nullable=False)
     correo = Column(String(255), nullable=False)
     contrasena = Column(String(255), nullable=False)
