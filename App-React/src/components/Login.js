@@ -5,17 +5,29 @@ import imglogin from '../assets/imglogin.svg';
 
 export default function Login() {
   const [formData, setFormData] = useState({
+    grant_type : '',
     username: '',
     password: '',
+    scope: '',
+    client_id: '',
+    client_secret: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+    setError(null);
+
     try {
       const response = await Auth(formData);
       console.log(response);
     } catch (error) {
       console.log("Error al enviar datos", error);
+      setError("Error al enviar datos. Por favor, inténtalo de nuevo.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -31,6 +43,7 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
+              <input type="hidden" name="grant_type" value={formData.grant_type} />
               <div>
                 <label htmlFor="email-address" className="sr-only">Correo electrónico</label>
                 <input
@@ -55,7 +68,11 @@ export default function Login() {
                   placeholder="Contraseña"
                 />
               </div>
+              <input type="hidden" name="scope" value={formData.scope} />
+              <input type="hidden" name="client_id" value={formData.client_id} />
+              <input type="hidden" name="client_secret" value={formData.client_secret} />
             </div>
+            {error && <p className="text-red-500">{error}</p>}
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input id="remember_me" name="remember_me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
@@ -68,8 +85,8 @@ export default function Login() {
               </div>
             </div>
             <div>
-              <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Iniciar sesión
+              <button type="submit" disabled={loading} className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                {loading ? "Cargando..." : "Iniciar sesión"}
               </button>
             </div>
           </form>

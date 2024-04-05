@@ -24,9 +24,13 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
 
 @router.post("/login", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_session)):
+    print("ENTRO A LA FUNCION DE LOGIN")
+    print("ESTE ES EL PRIMER VALOR RECIBIDO: ", form_data.username)
+    print("ESTE ES EL SEGUNDO VALOR RECIBIDO: ", form_data.password)
     user = authenticate_user(form_data, db)
     if not user:
         raise HTTPException(status_code=401, detail="Invalid username or password", headers={"WWW-Authenticate": "Bearer"})
     access_token = create_access_token(data={"sub": user.id_usuario})
     return {"access_token": access_token, "token_type": "bearer"} 
 
+    
