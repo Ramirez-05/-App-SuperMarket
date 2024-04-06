@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
 import NotFound from './components/NotFound';
-import HomePage from './components/HomePage';
+import HomePageNavbar from './components/HomePage/HomePageNavbar';
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
       <Routes>
         <Route exact path='/' element={<Login />} />
         <Route exact path='/createaccount' element={<CreateAccount />} />
-        <Route exact path='/homepage' element={<HomePage/>} />
+        <Route exact path='/homepage' element={<HomePageNavbar/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
