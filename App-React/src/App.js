@@ -9,9 +9,9 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path='/' element={<Login />} />
+        <Route exact path='/login' element={<Login />} />
         <Route exact path='/createaccount' element={<CreateAccount />} />
-        <Route exact path='/homepage' element={<HomePageNavbar/>} />
+        <Route exact path='/' element={<HomePageNavbar/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
