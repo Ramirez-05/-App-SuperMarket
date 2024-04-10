@@ -25,7 +25,7 @@ export default function Navbar(){
         <div className="bg-black h-screen">
             <div className="flex">
                 <div className="flex h-screen mt-4 fixed shadow-lg w-44">
-                    <div onClick={handleMenu} className="mt-5 ml-6">
+                    <div onClick={handleMenu} className="mt-5 ml-6 absolute">
                         <img className="ml-10 w-6 h-6 bg-slate-300 rounded-full hover:transition-transform transform hover:scale-110" src={home} alt="imghome" />
                         <h1 className="mb-7 ml-3 pl-5 text-sm font-semibold text-white">
                             Menu

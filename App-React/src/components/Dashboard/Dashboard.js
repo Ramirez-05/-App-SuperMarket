@@ -18,18 +18,18 @@ export default function HomePage() {
                  focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Registrarse</button>
                 </Link>
             </div>
-            <hr className="shadow-lg mt-9 relative" />
-            <div className="ml-44 grid md:justify-center justify-center mt-14 mr-16">
+            <hr className="shadow-lg mt-9 relative"/>
+            <div className="ml-44 grid md:justify-center justify-center mt-14 w-full">
                 <div>
                     <h1 className="text-2xl md:text-5xl font-black text-white">
                         SISTEMA DE INVENTARIO
                     </h1>
                 </div>
 
-                <div className="mt-20 bg-white h-44">
+                <div className="mt-20 bg-white h-auto w-full">
                     <Containerstatistics/>
                 </div>
-                </div>
+            </div>
         </div>
     );
 }
