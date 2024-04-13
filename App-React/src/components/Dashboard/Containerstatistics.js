@@ -4,7 +4,7 @@ import statistics from '../Dashboard/icons/statistics.svg';
 const Items = ({ text, className }) => {
   return (
     <div className={`bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
-                 focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg border border-white ${className}`}>
+                 focus:ring-blue-300 dark:focus:ring-blue-800 rounded-lg border border-black ${className}`}>
       <img className="justify-center w-full h-56" src={statistics} alt=''/>
       <span className="grid justify-center items-center">{text}</span>
     </div>

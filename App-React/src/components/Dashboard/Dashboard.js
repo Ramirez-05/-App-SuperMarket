@@ -4,7 +4,7 @@ import Containerstatistics from "./Containerstatistics";
 
 export default function HomePage() {
     return (
-        <div className="bg-black w-full">
+        <div className="bg-white w-full">
             {/* Navbar login-registrarse */}
             <div className="flex justify-end mt-10 font-bold mr-20">
                 
@@ -21,12 +21,12 @@ export default function HomePage() {
             <hr className="shadow-lg mt-9 relative"/>
             <div className="ml-44 md:ml-20 grid md:justify-center justify-center mt-14 w-full">
                 <div>
-                    <h1 className="ml-24 text-2xl md:text-5xl font-black text-white">
+                    <h1 className="ml-24 text-2xl md:text-5xl font-black text-black">
                         SISTEMA DE INVENTARIO
                     </h1>
                 </div>
 
-                <div className="mt-20 bg-black h-auto w-full">
+                <div className="mt-20 bg-white h-auto w-full">
                     <Containerstatistics/>
                 </div>
             </div>
