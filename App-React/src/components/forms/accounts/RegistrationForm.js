@@ -10,7 +10,7 @@ export default function RegistrationForm({ dataPerson, dataUser, dataRole, loadi
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label htmlFor="cedula" className="sr-only">Cedula</label>
+                        <label htmlFor="cedula" className="sr-only">Cedula</label> 
                         <input 
                             type="number" 
                             id="cedula" 
