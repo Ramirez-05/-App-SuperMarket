@@ -28,7 +28,7 @@ CREATE TABLE usuarios (
     FOREIGN KEY (id_role) REFERENCES roles(id_role)
 );
 
-CREATE TABLE solicitudes_restablecimiento_contraseña (
+CREATE TABLE solicitudes_restablecimiento_contrasena (
     solicitud_id INT PRIMARY KEY AUTO_INCREMENT,
     id_usuario VARCHAR(255) NOT NULL,
     codigo_verificacion VARCHAR(10),
