@@ -43,7 +43,6 @@ export default function Login({
           <div className="grid max-w-md w-full mx-auto bg-white bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl shadow-2xl overflow-hidden p-8 space-y-8">
             <h1 className="font-bold text-gray-900 ml-auto">Descubre más acerca de nosotros</h1>
             <button className="w-16 font-bold py-1 px-2 border border-indigo-600 rounded-md text-indigo-600 bg-white hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-auto">Vamos</button>
-            {/* La imagen de inicio de sesión que ya tienes */}
             <img className="w-100 h-100 transform hover:scale-105" src={imglogin} alt="Imagen de inicio de sesión" />
           </div>
         </section>

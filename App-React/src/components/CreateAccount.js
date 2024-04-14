@@ -1,4 +1,3 @@
-// CreateAccount.js
 import RegistrationForm from './forms/accounts/RegistrationForm';
 import React, { useState } from 'react';
 
@@ -27,7 +26,6 @@ export default function CreateAccount() {
     setLoading(true);
 
     try {
-      // Lógica para enviar los datos
     } catch (error) {
       console.log("Error al enviar datos", error);
     } finally {

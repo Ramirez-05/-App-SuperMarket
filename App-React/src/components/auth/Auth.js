@@ -7,7 +7,7 @@ export default function Auth({ onShowCreateAccount }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Lógica para enviar el formulario
+        
     };
 
     const handleChange = (event) => {
