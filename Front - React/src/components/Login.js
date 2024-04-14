@@ -4,7 +4,7 @@ import Auth from './auth/Auth';
 import imglogin from '../assets/imglogin.svg';
 
 
-export default function Login({ 
+export default function Login({  
   dataPerson,
   dataUser,
   dataRole,
