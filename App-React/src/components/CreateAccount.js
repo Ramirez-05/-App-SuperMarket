@@ -1,5 +1,5 @@
 // CreateAccount.js
-import RegistrationForm from ' ./forms/accounts/RegistrationForm';
+import RegistrationForm from './forms/accounts/RegistrationForm';
 import React, { useState } from 'react';
 
 export default function CreateAccount() {
