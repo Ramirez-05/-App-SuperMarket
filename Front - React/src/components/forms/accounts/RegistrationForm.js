@@ -1,5 +1,5 @@
 import React from 'react';
-import FormInput from './forms/inputs/FormInput';
+import FormInput from './forms/Inputs/FormInput';
 
 export default function RegistrationForm({ 
     dataPerson = {}, 
@@ -7,7 +7,7 @@ export default function RegistrationForm({
     dataRole = {}, 
     loading = false, 
     handleSubmit, 
-    handleChangePerson, 
+    handleChangePerson,       
     handleChangeUser, 
     handleChangeRole 
     }) {
