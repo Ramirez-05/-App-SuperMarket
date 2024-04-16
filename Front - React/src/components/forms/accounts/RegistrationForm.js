@@ -1,5 +1,5 @@
 import React from 'react';
-import FormInput from './forms/Inputs/FormInput';
+import FormInput from '../Inputs/FormInput';
 
 export default function RegistrationForm({ 
     dataPerson = {}, 

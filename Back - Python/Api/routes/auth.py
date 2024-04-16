@@ -7,7 +7,7 @@ from core.utils import get_user_by_id
 from core.security import create_access_token, verify_token
 from Api.schemas.auth import Token
 from Api.schemas.resetPassword import ResetPassword
-from core.email_utils import send_email, generate_html_content
+from core.email_utils import send_email, generate_html_content, generate_verification_code
 
 
 router = APIRouter()
@@ -39,7 +39,7 @@ async def reset_password(resetPassword: ResetPassword, db: Session = Depends(get
     user = get_user_by_email(resetPassword.email, db)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    # Genera el contenido HTML aquí dentro de la ruta
-    html_content = generate_html_content()
+    code = generate_verification_code(db)
+    html_content = generate_html_content(code)
     send_email(resetPassword.email, html_content) 
     return {"message": "ok"}

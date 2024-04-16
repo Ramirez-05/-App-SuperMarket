@@ -34,16 +34,23 @@ export default function CreateAccount() {
   };
 
   const handleChangePerson = (event) => {
+    console.log("handleChangePerson llamado");
+    console.log("Nuevo valor de", event.target.name, ":", event.target.value);
     setdataPerson({ ...dataPerson, [event.target.name]: event.target.value });
   };
 
   const handleChangeUser = (event) => {
-    setdataUser({ ...dataUser, [event.target.name]: event.target.value });
+      console.log("handleChangeUser llamado");
+      console.log("Nuevo valor de", event.target.name, ":", event.target.value);
+      setdataUser({ ...dataUser, [event.target.name]: event.target.value });
   };
 
   const handleChangeRole = (event) => {
-    setdataRole({ ...dataRole, [event.target.name]: event.target.value });
+      console.log("handleChangeRole llamado");
+      console.log("Nuevo valor de", event.target.name, ":", event.target.value);
+      setdataRole({ ...dataRole, [event.target.name]: event.target.value });
   };
+
 
   return (
     <main className="w-auto h-screen bg-black flex justify-center items-center">

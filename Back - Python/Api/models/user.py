@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from Api.models.base_class import Base
 from Api.models.person import Person
 from Api.models.role import Rol
+from Api.models.reset_password import ResetPassword  
 
 class User(Base):
     __tablename__ = 'usuarios'
@@ -16,3 +17,5 @@ class User(Base):
 
     person = relationship("Person", back_populates="usuarios")
     role = relationship("Rol", back_populates="usuarios")
+
+    solicitudes_restablecimiento_contrasena = relationship("ResetPassword", back_populates="user")
