@@ -22,6 +22,14 @@ def generate_verification_code(db: Session):
         existing_code = db.query(ResetPassword).filter(ResetPassword.codigo_verificacion == verification_code).first()
         if not existing_code:
             return verification_code
+        
+#Funcion para guardar el codigo de verificacion en la base de datosW
+def saveCode(db: Session, code: str, id_usuario: str):
+    reset_password = ResetPassword(codigo_verificacion=code, id_usuario=id_usuario, estado_solicitud='pendiente')
+    db.add(reset_password)
+    db.commit()
+
+    
 
 # Función para generar el contenido HTML del correo de restablecimiento de contraseña
 def generate_html_content(verification_code: str):
@@ -75,7 +83,6 @@ def generate_html_content(verification_code: str):
     """
     return html_content
 
-
 # Función para mandar un correo con contenido HTML
 def send_email(email: str, html_content: str):
     # Obtener las credenciales del correo electrónico desde las variables de entorno
@@ -101,5 +108,3 @@ def send_email(email: str, html_content: str):
 
     # Cerrar la conexión con el servidor SMTP
     server.quit()
-
- 

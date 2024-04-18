@@ -7,7 +7,7 @@ from core.utils import get_user_by_id
 from core.security import create_access_token, verify_token
 from Api.schemas.auth import Token
 from Api.schemas.resetPassword import ResetPassword
-from core.email_utils import send_email, generate_html_content, generate_verification_code
+from core.email_utils import send_email, generate_html_content, generate_verification_code, saveCode
 
 
 router = APIRouter()
@@ -40,6 +40,7 @@ async def reset_password(resetPassword: ResetPassword, db: Session = Depends(get
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     code = generate_verification_code(db)
+    saveCode(db, code, user.id_usuario)
     html_content = generate_html_content(code)
     send_email(resetPassword.email, html_content) 
     return {"message": "ok"}
