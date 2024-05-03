@@ -14,3 +14,7 @@ class UserRead(UserBase):
     estado: bool
     id_persona: int
     id_role: int
+
+class GetUser(BaseModel):
+    skip: int
+    limit: int

@@ -1,6 +1,6 @@
 from Api.models.user import User
 from sqlalchemy.orm import Session
-from Api.schemas.user import UserCreate
+from Api.schemas.user import UserCreate,GetUser
 from fastapi import HTTPException
 from core.security import get_hashed_password
 from core.utils import generateuser_id
@@ -25,3 +25,12 @@ def create_new_user(persona: int, usuario: UserCreate, role: int, db:Session) :
             raise HTTPException(status_code=500,detail=f"no se pudo agregar el usuario: {str(e)}")
         
 ######################################################################################################
+
+def get_users(getuser: GetUser,db:Session):
+        try:
+            users = db.query(User).offset(getuser.skip).limit(getuser.limit).all()
+            return users
+        except Exception as e:
+            print(f"Error al obtener usuarios: {str(e)}", file=sys.stderr)
+            raise HTTPException(status_code=500, detail=f"No se pudo obtener usuarios: {str(e)}")
+     
