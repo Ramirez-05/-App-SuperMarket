@@ -1,9 +1,14 @@
+import { useState } from "react";
 import React from "react";
 import cat from "../../assets/cat404.svg";
+import Login from "../auth/Login"
 
 export default function Homepage() {
+
+  const [showLogin, setShowLogin] = useState(false)
   return (
     <main>
+      {showLogin && <Login/>}
       <header>
         {/* Ajustamos el padding según el tamaño de la pantalla */}
         <div className="bg-gradient-to-r from-purple-600 to-indigo-500 border-black font-thin flex justify-between items-center px-6 sm:px-10 lg:px-40">
@@ -18,14 +23,13 @@ export default function Homepage() {
             {/* Usamos `hidden` para ocultar el separador en pantallas pequeñas */}
             <hr className="hidden sm:block h-6 border-l border-gray-400" />
             <button className="hover:text-black">Registrarse</button>
-            <button className="hover:text-black">Inicia sesión</button>
+            <button onClick={() => {console.log("Boton Clickeado"); setShowLogin(true);}} className="hover:text-black">Inicia sesión</button>
           </div>
         </div>
       </header>
       <div className="flex flex-col lg:flex-row justify-start items-center w-full min-h-screen bg-white px-6 lg:pl-20">
         {/* Contenido de texto */}
         <div className="text-left mb-8 lg:mb-0">
-          {" "}
           {/* Agrega margen inferior para cuando se muestren en columnas */}
           <h1 className="text-black text-3xl sm:text-5xl font-bold">
             SISTEMA DE INVENTARIO
@@ -46,6 +50,7 @@ export default function Homepage() {
           <img className="w-full h-full object-cover" src={cat} alt="Gato" />
         </div>
       </div>
+      
     </main>
   );
 }
