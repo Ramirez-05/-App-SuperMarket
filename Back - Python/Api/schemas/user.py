@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+from typing import Optional
 
 class UserBase(BaseModel):
     correo: EmailStr
@@ -16,5 +17,5 @@ class UserRead(UserBase):
     id_role: int
 
 class GetUser(BaseModel):
-    skip: int
-    limit: int
+    skip: Optional[int] = None
+    limit: Optional[int] = None

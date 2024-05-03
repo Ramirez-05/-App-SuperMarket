@@ -26,7 +26,7 @@ def create_new_user(persona: int, usuario: UserCreate, role: int, db:Session) :
         
 ######################################################################################################
 
-def get_users(getuser: GetUser,db:Session):
+def get_users(getuser: GetUser,db: Session):
         try:
             users = db.query(User).offset(getuser.skip).limit(getuser.limit).all()
             return users
