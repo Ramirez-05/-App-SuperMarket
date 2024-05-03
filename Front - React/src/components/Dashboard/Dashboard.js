@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Containerstatistics from "./Containerstatistics";
 
-export default function HomePage() {
+export default function Dashboard() {
     return (
         <div className="bg-white w-full">
             {/* Navbar login-registrarse */}

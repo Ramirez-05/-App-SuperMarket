@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import home from '../Dashboard/icons/home.svg';
 import contact from '../Dashboard/icons/contact.svg';
 import statistics from '../Dashboard/icons/statistics.svg';
-import HomePage from './Dashboard';
+import Dashboard from './Dashboard';
 
 export default function Navbar(){
     const [menuOpen, setMenuOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function Navbar(){
                 </div>
             </div>
             <div className="">
-                <HomePage/>
+                <Dashboard/>
             </div>
         </div>
     );

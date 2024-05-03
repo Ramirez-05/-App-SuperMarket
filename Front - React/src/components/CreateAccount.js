@@ -57,7 +57,6 @@ export default function CreateAccount(){
   };
 
 
-{/*LEFT DIV///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/}
 return (
 <main className="w-auto h-screen bg-black flex justify-center gap-0">
   <section className="-mx-8 min-h-screen flex items-center justify-end px-4 sm:px-6 lg:px-8 ">
