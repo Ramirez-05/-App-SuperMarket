@@ -1,22 +1,17 @@
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from db.connection import get_session
-from Api.crud.auth import  authenticate_user, get_user_by_email
+from Api.crud.auth import authenticate_user, get_user_by_email
 from core.utils import get_user_by_id
 from core.security import create_access_token, verify_token
-from Api.schemas.auth import Token
+from Api.schemas.auth import Token, AuthBase
 from Api.schemas.resetPassword import ResetPassword
-from core.email_utils import send_email, generate_html_content
-
+from core.email_utils import send_email, generate_html_content, generate_verification_code, saveCode
 
 router = APIRouter()
 
-# Se crea una instancia de OAuth2PasswordBearer para manejar el esquema de autenticación OAuth2
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
-
 # Función para obtener el usuario actual basado en el token JWT proporcionado
-async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_session)):
+async def get_current_user(token: str, db: Session = Depends(get_session)):
     user = await verify_token(token)
     if user is None:
         raise HTTPException(status_code=401, detail="Invalid token")
@@ -26,8 +21,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
     return user_db
 
 @router.post("/login", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_session)):
-    user = authenticate_user(form_data, db)
+async def login_for_access_token(auth_data: AuthBase, db: Session = Depends(get_session)):
+    user = authenticate_user(auth_data, db)
     if not user:
         raise HTTPException(status_code=401, detail="Invalid username or password", headers={"WWW-Authenticate": "Bearer"})
     access_token = create_access_token(data={"sub": user.id_usuario})
@@ -39,7 +34,11 @@ async def reset_password(resetPassword: ResetPassword, db: Session = Depends(get
     user = get_user_by_email(resetPassword.email, db)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
+    # Genera un código de verificación de 6 dígitos
+    verification_code = generate_verification_code(db)
     # Genera el contenido HTML aquí dentro de la ruta
-    html_content = generate_html_content()
-    send_email(resetPassword.email, html_content) 
+    html_content = generate_html_content(verification_code)
+    send_email(resetPassword.email, html_content)
+    # Guarda el código de verificación en la base de datos
+    saveCode(db, verification_code, user.id_usuario)
     return {"message": "ok"}

@@ -33,9 +33,11 @@ CREATE TABLE solicitudes_restablecimiento_contrasena (
     id_usuario VARCHAR(255) NOT NULL,
     codigo_verificacion VARCHAR(10),
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_expiracion TIMESTAMP NOT NULL DEFAULT DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 3 MINUTE),
     estado_solicitud ENUM('pendiente', 'completada', 'expirada'),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
+
 
 CREATE TABLE categorias (
     id_categoria INT PRIMARY KEY AUTO_INCREMENT,
