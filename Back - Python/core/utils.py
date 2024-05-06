@@ -42,7 +42,6 @@ def userStatus(id_usuario: int, db: Session):
     else:
         return False
     
-
 #funcion para generar un id de usuario aleatorio
 def generateuser_id(length=30):
     #caracteres posibles para el id

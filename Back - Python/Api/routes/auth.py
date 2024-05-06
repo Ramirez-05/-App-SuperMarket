@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response  # Importa Response
 from sqlalchemy.orm import Session
 from db.connection import get_session
 from Api.crud.auth import authenticate_user, get_user_by_email
@@ -7,11 +7,27 @@ from core.security import create_access_token, verify_token
 from Api.schemas.auth import Token, AuthBase
 from Api.schemas.resetPassword import ResetPassword
 from core.email_utils import send_email, generate_html_content, generate_verification_code, saveCode
+from fastapi import Cookie
 
 router = APIRouter()
 
+@router.post("/login", response_model=Token)
+async def login_for_access_token(auth_data: AuthBase, response: Response, db: Session = Depends(get_session)):  # Añade response como parámetro
+    user = authenticate_user(auth_data, db)
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid username or password", headers={"WWW-Authenticate": "Bearer"})
+    access_token = create_access_token(data={"sub": user.id_usuario})
+    # Configura la cookie con los atributos HttpOnly, Secure y SameSite
+    response.set_cookie(key="ADT", value=access_token, httponly=True, secure=True, samesite="Strict")
+    return {"access_token": access_token, "token_type": "bearer"} 
+
+from fastapi import Request
+
 # Función para obtener el usuario actual basado en el token JWT proporcionado
-async def get_current_user(token: str, db: Session = Depends(get_session)):
+async def get_current_user(request: Request, db: Session = Depends(get_session)):
+    token = request.cookies.get("ADT")
+    if token is None:
+        raise HTTPException(status_code=401, detail="Missing token")
     user = await verify_token(token)
     if user is None:
         raise HTTPException(status_code=401, detail="Invalid token")
@@ -20,13 +36,6 @@ async def get_current_user(token: str, db: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail="User not found")
     return user_db
 
-@router.post("/login", response_model=Token)
-async def login_for_access_token(auth_data: AuthBase, db: Session = Depends(get_session)):
-    user = authenticate_user(auth_data, db)
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid username or password", headers={"WWW-Authenticate": "Bearer"})
-    access_token = create_access_token(data={"sub": user.id_usuario})
-    return {"access_token": access_token, "token_type": "bearer"} 
 
 # Ruta para mandar un código al correo del usuario para restablecer la contraseña
 @router.post("/reset-password")
