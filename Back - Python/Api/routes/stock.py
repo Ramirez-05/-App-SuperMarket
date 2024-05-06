@@ -19,7 +19,7 @@ async def get_stock_route(db: Session = Depends(get_session), current_user: User
         raise HTTPException(status_code=401, detail="Tu usuario esta inactivo")
     return get_stock(db) 
 
-
+#Ruta de obtener lote proximo a vencer
 @router.get("/due-date")
 async def get_due_date(db: Session = Depends(get_session)):
         print("Entro a la funcion lote mas proximo a vencer")
