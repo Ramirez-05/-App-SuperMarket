@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Response  # Importa Response
+from fastapi import APIRouter, Depends, HTTPException, Response, Request, Cookie
 from sqlalchemy.orm import Session
 from db.connection import get_session
 from Api.crud.auth import authenticate_user, get_user_by_email
@@ -7,21 +7,19 @@ from core.security import create_access_token, verify_token
 from Api.schemas.auth import Token, AuthBase
 from Api.schemas.resetPassword import ResetPassword
 from core.email_utils import send_email, generate_html_content, generate_verification_code, saveCode
-from fastapi import Cookie
+
 
 router = APIRouter()
 
 @router.post("/login", response_model=Token)
-async def login_for_access_token(auth_data: AuthBase, response: Response, db: Session = Depends(get_session)):  # Añade response como parámetro
+async def login_for_access_token(auth_data: AuthBase, response: Response, db: Session = Depends(get_session)): 
     user = authenticate_user(auth_data, db)
     if not user:
         raise HTTPException(status_code=401, detail="Invalid username or password", headers={"WWW-Authenticate": "Bearer"})
     access_token = create_access_token(data={"sub": user.id_usuario})
-    # Configura la cookie con los atributos HttpOnly, Secure y SameSite
     response.set_cookie(key="ADT", value=access_token, httponly=True, secure=True, samesite="Strict")
     return {"access_token": access_token, "token_type": "bearer"} 
 
-from fastapi import Request
 
 # Función para obtener el usuario actual basado en el token JWT proporcionado
 async def get_current_user(request: Request, db: Session = Depends(get_session)):
