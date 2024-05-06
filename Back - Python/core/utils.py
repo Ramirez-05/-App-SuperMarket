@@ -6,6 +6,9 @@ from sqlalchemy.exc import OperationalError
 from sqlalchemy import text
 import secrets
 import string
+from typing import Optional
+from sqlalchemy.orm import Session
+from Api.models.role import Rol
 
 # Función para obtener una persona por su cédula
 def get_person_by_cedula(persona: PersonBase ,db:Session):
@@ -25,14 +28,40 @@ def serverStatus(db):
     except OperationalError:
         return False
 
-# Funcion para verificar si el usuario es administrador
-def checkRole(id_role: int, db: Session, cedula: str,id_persona: int):
-    user = db.query(User).filter(User.id_role == id_role).first()
-    person = db.query(Person).filter(Person.cedula == cedula).first()
-    if user == 1 or person.id_persona == id_persona:
-        return True
+
+#  Funcion para verificar si el usuario es administrador
+# def checkRole(id_role: int, db: Session, cedula: str,id_persona: int):
+#     role = db.query(Rol).filter(Rol.id_role == id_role).first()
+#     person = db.query(Person).filter(Person.cedula == cedula).first()
+#     if role.nombre == "Administrador" or person.id_persona == id_persona:
+#         return True
+#     else:
+#         return False
+
+def checkRole(*args):
+    if len(args) == 2:  
+        id_role, db = args
+        if id_role is None or db is None:
+            return False
+        else:
+            role = db.query(Rol).filter(Rol.id_role == id_role).first()
+            if role.nombre == "Administrador":
+                return True
+            else:
+                return False
+    elif len(args) == 4:  
+        id_role, db, cedula, id_persona = args
+        if id_role is None or db is None or cedula is None or id_persona is None:
+            return False
+        else:
+            role = db.query(Rol).filter(Rol.id_role == id_role).first()
+            person = db.query(Person).filter(Person.cedula == cedula).first()
+            if role.nombre == "Administrador" or person.id_persona == id_persona:
+                return True
+            else:
+                return False
     else:
-        return False
+        raise TypeError("Número incorrecto de argumentos")
 
 # Funcion para verificar el estado del usuario
 def userStatus(id_usuario: int, db: Session):
@@ -42,7 +71,6 @@ def userStatus(id_usuario: int, db: Session):
     else:
         return False
     
-
 #funcion para generar un id de usuario aleatorio
 def generateuser_id(length=30):
     #caracteres posibles para el id

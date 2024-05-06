@@ -3,6 +3,7 @@ from email.mime.multipart import MIMEMultipart
 from sqlalchemy.orm import Session
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
+from datetime import datetime, timedelta
 import smtplib
 import os
 import random
@@ -13,6 +14,7 @@ dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 # Cargar variables de entorno desde el archivo .env
 load_dotenv(dotenv_path)
 
+# Función para generar un código de verificación de 6 dígitos
 def generate_verification_code(db: Session):
     while True:
         # Generar un número aleatorio de 6 dígitos
@@ -23,18 +25,6 @@ def generate_verification_code(db: Session):
         if not existing_code:
             return verification_code
         
-#Funcion para guardar el codigo de verificacion en la base de datosW
-def saveCode(db: Session, code: str, id_usuario: str):
-    reset_password = ResetPassword(
-        codigo_verificacion=code, 
-        id_usuario=id_usuario,
-        estado_solicitud='pendiente'
-        )
-    db.add(reset_password)
-    db.commit()
-
-    
-
 # Función para generar el contenido HTML del correo de restablecimiento de contraseña
 def generate_html_content(verification_code: str):
     html_content = """
@@ -112,3 +102,15 @@ def send_email(email: str, html_content: str):
 
     # Cerrar la conexión con el servidor SMTP
     server.quit()
+
+#Funcion para guardar el codigo de verificacion en la base de datosW
+def saveCode(db: Session, code: str, id_usuario: str):
+    reset_password = ResetPassword(
+        codigo_verificacion=code, 
+        id_usuario=id_usuario,
+        fecha_creacion=datetime.now(),
+        fecha_expiracion=datetime.now() + timedelta(minutes=3),
+        estado_solicitud='pendiente'
+        )
+    db.add(reset_password)
+    db.commit()

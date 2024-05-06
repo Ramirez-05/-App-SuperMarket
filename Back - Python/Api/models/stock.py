@@ -13,4 +13,3 @@ class Stock(Base):
     estado = Column(Boolean, nullable=False)
 
     user = relationship("User", back_populates="stock")
-    product = relationship("Producto", back_populates="stock")

@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Date, DECIMAL
 from sqlalchemy.orm import relationship
 from Api.models.base_class import Base
+from Api.models.category import Categoria
+from Api.models.stock import Stock
 
 class Producto(Base):
     __tablename__ = 'productos'
@@ -13,3 +15,5 @@ class Producto(Base):
     fecha_vencimiento = Column(Date, nullable=False)
 
     category = relationship("Categoria", back_populates="productos")
+
+    stock = relationship("Stock", back_populates="productos")

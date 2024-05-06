@@ -32,8 +32,8 @@ CREATE TABLE solicitudes_restablecimiento_contrasena (
     solicitud_id INT PRIMARY KEY AUTO_INCREMENT,
     id_usuario VARCHAR(255) NOT NULL,
     codigo_verificacion VARCHAR(10),
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fecha_expiracion TIMESTAMP NOT NULL DEFAULT DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 3 MINUTE),
+    fecha_creacion DATETIME NOT NULL,
+    fecha_expiracion DATETIME NOT NULL,
     estado_solicitud ENUM('pendiente', 'completada', 'expirada'),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
@@ -51,7 +51,6 @@ CREATE TABLE productos (
     descripcion VARCHAR(255) NOT NULL,
     id_categoria INT NOT NULL,
     precio DECIMAL(10,2) NOT NULL,
-    fecha_vencimiento DATE NOT NULL ,
     FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
 );
 
@@ -61,6 +60,7 @@ CREATE TABLE stock (
     id_producto INT NOT NULL,
     cantidad INT NOT NULL,
     lote VARCHAR(85) NOT NULL,
+    fecha_vencimiento DATE NOT NULL,
     estado TINYINT(1) NOT NULL,
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
