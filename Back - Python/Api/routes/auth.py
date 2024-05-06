@@ -8,9 +8,9 @@ from Api.schemas.auth import Token, AuthBase
 from Api.schemas.resetPassword import ResetPassword
 from core.email_utils import send_email, generate_html_content, generate_verification_code, saveCode
 
-
 router = APIRouter()
 
+# Ruta para iniciar sesión y obtener un token JWT
 @router.post("/login", response_model=Token)
 async def login_for_access_token(auth_data: AuthBase, response: Response, db: Session = Depends(get_session)): 
     user = authenticate_user(auth_data, db)
@@ -19,7 +19,6 @@ async def login_for_access_token(auth_data: AuthBase, response: Response, db: Se
     access_token = create_access_token(data={"sub": user.id_usuario})
     response.set_cookie(key="ADT", value=access_token, httponly=True, secure=True, samesite="Strict")
     return {"access_token": access_token, "token_type": "bearer"} 
-
 
 # Función para obtener el usuario actual basado en el token JWT proporcionado
 async def get_current_user(request: Request, db: Session = Depends(get_session)):
@@ -33,7 +32,6 @@ async def get_current_user(request: Request, db: Session = Depends(get_session))
     if user_db is None:
         raise HTTPException(status_code=404, detail="User not found")
     return user_db
-
 
 # Ruta para mandar un código al correo del usuario para restablecer la contraseña
 @router.post("/reset-password")

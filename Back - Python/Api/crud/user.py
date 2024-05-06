@@ -34,7 +34,6 @@ def get_users(getuser: GetUser,db: Session):
             print(f"Error al obtener usuarios: {str(e)}", file=sys.stderr)
             raise HTTPException(status_code=500, detail=f"No se pudo obtener usuarios: {str(e)}")
 
-
 def disabled_users(db: Session):
         try:
             disabled_users = db.query(User).filter(User.id_role == 2).filter(User.estado == False).all()
