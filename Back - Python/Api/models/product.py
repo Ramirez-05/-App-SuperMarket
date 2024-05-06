@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date, DECIMAL
+from sqlalchemy import Column, Integer, String, ForeignKey, DECIMAL
 from sqlalchemy.orm import relationship
 from Api.models.base_class import Base
 from Api.models.category import Categoria
@@ -12,7 +12,6 @@ class Producto(Base):
     descripcion = Column(String(255), nullable=False)
     id_categoria = Column(Integer, ForeignKey('categorias.id_categoria'), nullable=False)
     precio = Column(DECIMAL(10, 2), nullable=False)
-    fecha_vencimiento = Column(Date, nullable=False)
 
     category = relationship("Categoria", back_populates="productos")
 

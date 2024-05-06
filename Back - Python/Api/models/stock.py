@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean,Date
 from sqlalchemy.orm import relationship
 from Api.models.base_class import Base
 
@@ -11,5 +11,6 @@ class Stock(Base):
     cantidad = Column(Integer, nullable=False)
     lote = Column(String(85), nullable=False)
     estado = Column(Boolean, nullable=False)
+    fecha_de_vencimiento = Column(Date, nullable=False)
 
     user = relationship("User", back_populates="stock")
