@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Response, Request, Cookie
 from sqlalchemy.orm import Session
 from db.connection import get_session
-from Api.crud.auth import authenticate_user, get_user_by_email
+from Api.crud.auth import authenticate_user, get_user_by_email, save_code_token, close_session
 from core.utils import get_user_by_id
 from core.security import create_access_token, verify_token
 from Api.schemas.auth import Token, AuthBase
@@ -18,6 +18,7 @@ async def login_for_access_token(auth_data: AuthBase, response: Response, db: Se
         raise HTTPException(status_code=401, detail="Invalid username or password", headers={"WWW-Authenticate": "Bearer"})
     access_token = create_access_token(data={"sub": user.id_usuario})
     response.set_cookie(key="ADT", value=access_token, httponly=True, secure=True, samesite="Strict")
+    save_code_token(access_token, db)
     return {"access_token": access_token, "token_type": "bearer"} 
 
 # Función para obtener el usuario actual basado en el token JWT proporcionado
@@ -47,3 +48,9 @@ async def reset_password(resetPassword: ResetPassword, db: Session = Depends(get
     # Guarda el código de verificación en la base de datos
     saveCode(db, verification_code, user.id_usuario)
     return {"message": "ok"}
+
+#Ruta para cerrar sesion 
+@router.delete("/log-out")
+async def delete_token_route(request: Request,response:Response, db: Session = Depends(get_session)):
+    token = request.cookies.get('ADT')
+    close_session(token,db,response)
