@@ -45,11 +45,23 @@ def close_session(token:str, db:Session, response: Response):
         if token_for_delete:
             db.delete(token_for_delete)
             db.commit()
-            #elimina las cookies
+            #elimina las cookies que sea igual a la de la base de datos
             response.delete_cookie("ADT")
-            return token_for_delete
+            return ("EL TOKEN ELIMINADO ES: ",token_for_delete)
         else:
             raise HTTPException(status_code=404, detail="Token no encontrado")
     except Exception as e:
         print(f"error al cerrar sesion: {str(e)}",file=sys.stderr)
         raise HTTPException(status_code=500,detail=f"no se pudo cerrar sesion: {str(e)}")
+    
+
+#Funcion encargada de traer la cantidad de tokens que hay en la db
+def token_counter(db: Session):
+    try:
+        # Utiliza SQLAlchemy para realizar la consulta de conteo
+        db_tokens_count = db.query(Token).count()
+        return db_tokens_count
+    except Exception as e:
+        print(f"Error al contar los tokens: {str(e)}", file=sys.stderr)
+        raise HTTPException(status_code=500, detail=f"No se pudo contar los tokens: {str(e)}")
+

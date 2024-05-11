@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, Response, Request, Cookie
+from fastapi import APIRouter, Depends, HTTPException, Response, Request
 from sqlalchemy.orm import Session
 from db.connection import get_session
-from Api.crud.auth import authenticate_user, get_user_by_email, save_code_token, close_session
+from Api.crud.auth import authenticate_user, get_user_by_email, save_code_token, close_session, token_counter
 from core.utils import get_user_by_id
 from core.security import create_access_token, verify_token
 from Api.schemas.auth import Token, AuthBase
@@ -53,4 +53,10 @@ async def reset_password(resetPassword: ResetPassword, db: Session = Depends(get
 @router.delete("/log-out")
 async def delete_token_route(request: Request,response:Response, db: Session = Depends(get_session)):
     token = request.cookies.get('ADT')
-    close_session(token,db,response)
+    return close_session(token,db,response)
+
+#Ruta para contar los tokens en la db
+@router.get("/tokens-counter")
+async def db_tokens_counter(db: Session = Depends(get_session)):
+    print("Entro a el contador de tokens")
+    return token_counter(db)
