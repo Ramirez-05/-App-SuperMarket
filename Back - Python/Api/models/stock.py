@@ -11,6 +11,6 @@ class Stock(Base):
     cantidad = Column(Integer, nullable=False)
     lote = Column(String(85), nullable=False)
     estado = Column(Boolean, nullable=False)
-    fecha_de_vencimiento = Column(Date, nullable=False)
+    fecha_vencimiento = Column(Date, nullable=False)
 
     user = relationship("User", back_populates="stock")

@@ -16,7 +16,7 @@ def get_stock(db: Session):
 #Funcion de el lote mas proximo a vencer
 def due_date_stock(db: Session):
     try:
-        stock_due_date = db.query(Stock).filter(Stock.fecha_de_vencimiento.isnot(None)).order_by(asc(Stock.fecha_de_vencimiento)).first()
+        stock_due_date = db.query(Stock).filter(Stock.fecha_vencimiento.isnot(None)).order_by(asc(Stock.fecha_vencimiento)).first()
         return stock_due_date
     except Exception as e:
         print(f"Error al obtener la fecha de vencimiento: {str(e)}", file=sys.stderr)
