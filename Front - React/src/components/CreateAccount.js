@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import imgcreateaccount from '../assets/imgcreateaccount.svg'
 import arrow from '../assets/arrow.svg'
-import { CreatePerson } from '../controllers/CreatePerson';
+import { CreatePerson } from '../controllers/PostControllers/CreatePerson';
 
 
 

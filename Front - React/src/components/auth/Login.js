@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Auth } from '../../controllers/Auth';
+import { Auth } from '../../controllers/PostControllers/Auth';
 import { Link } from 'react-router-dom';
 import imglogin from '../../assets/imglogin.svg';
 
