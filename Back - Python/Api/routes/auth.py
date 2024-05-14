@@ -27,6 +27,8 @@ async def get_current_user(request: Request, db: Session = Depends(get_session))
     if token is None:
         raise HTTPException(status_code=401, detail="Missing token")
     user = await verify_token(token)
+    if user is False:
+        raise HTTPException(status_code=401, detail="Token expired")
     if user is None:
         raise HTTPException(status_code=401, detail="Invalid token")
     user_db = get_user_by_id(user, db)

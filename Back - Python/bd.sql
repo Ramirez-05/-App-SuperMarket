@@ -65,3 +65,9 @@ CREATE TABLE stock (
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
+
+CREATE TABLE token (
+    id_token INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) NOT NULL,
+    fecha_de_creacion DATETIME NOT NULL
+);
