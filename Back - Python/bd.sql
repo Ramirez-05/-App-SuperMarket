@@ -64,4 +64,11 @@ CREATE TABLE stock (
     estado TINYINT(1) NOT NULL,
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+
+
+CREATE TABLE tokens (
+  id_token INT(11) NOT NULL,
+  token VARCHAR(255) NOT NULL,
+  fecha_vencimiento DATETIME NOT NULL
+) 
 );
