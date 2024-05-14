@@ -19,4 +19,4 @@ class User(Base):
     role = relationship("Rol", back_populates="usuarios")
     solicitudes_restablecimiento_contrasena = relationship("ResetPassword", back_populates="user")
     stock = relationship("Stock", back_populates="user")
-    
+     
