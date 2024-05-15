@@ -66,8 +66,8 @@ CREATE TABLE stock (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
 
-CREATE TABLE tokens (
-  id_token INT(11) NOT NULL,
-  token VARCHAR(255) NOT NULL,
-  fecha_vencimiento DATETIME NOT NULL
+CREATE TABLE token (
+    id_token INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) NOT NULL,
+    fecha_de_creacion DATETIME NOT NULL
 );
