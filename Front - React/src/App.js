@@ -5,6 +5,7 @@ import CreateAccount from './components/CreateAccount';
 import NotFound from './components/NotFound';
 import Homepage from './components/Homepage/Homepage';
 import SideNavbar from './components/Dashboard/SideNavbar';
+import ProductsDashboard from './components/Dashboard/Products';
 
 export default function App() {
   return (
@@ -15,6 +16,8 @@ export default function App() {
         <Route exact path='/' element={<SideNavbar/>} />
         <Route path="*" element={<NotFound />} />
         <Route path="/homepage" element={<Homepage />} />
+        <Route path="/productosdashboard" elemement={<ProductsDashboard />} />
+
       </Routes>
     </Router>
   );
