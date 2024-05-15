@@ -3,7 +3,7 @@ import React from "react";
 import DueDateDashboard from "./DueDate";
 import ActiveUsersDashboard from "./ActiveUsers";
 import InactiveUsersDashboard from "./InactiveUsers";
-
+import OnlineUsersDashboard from "./OnlineUsers";
 
 //Esta funcion hace el llamado de dos componentes.
 export default function ContainerStadisticsMain() {
@@ -14,9 +14,11 @@ export default function ContainerStadisticsMain() {
       <div className="flex flex-col justify-between items-center border-gray-950">
         {/* Primer fila */}
         <div className="flex space-x-4 w-full">
-          <ActiveUsersDashboard className="w-full" />
-          <DueDateDashboard className="w-full" />
-          <InactiveUsersDashboard className="w-full" />
+          <ActiveUsersDashboard />
+          <DueDateDashboard />
+          <InactiveUsersDashboard />
+          <OnlineUsersDashboard />
+
         </div>
 
         {/* Segunda fila */}
