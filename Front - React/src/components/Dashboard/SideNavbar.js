@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import home from '../Dashboard/icons/home.svg';
 import contact from '../Dashboard/icons/contact.svg';
 import statistics from '../Dashboard/icons/statistics.svg';
-import Dashboard from './Dashboard';
+import UpperNavbar from './UpperNavbar';
+//Funcion que maneja todo el componente del menu desplegable
+export default function SideNavbar(){
 
-export default function Navbar(){
+    //Estado del menu, inicia sin desplegarse
     const [menuOpen, setMenuOpen] = useState(false);
-
+ // Funcion que cambia el estado del menu y lo despliega
     function handleMenu() {
         setMenuOpen(!menuOpen);
     }
-
+//Componente que permite renderizar copias solo enviandole el prop de icon y text
     const MenuItem = ({ icon, text }) => {
         return (
             <h1 className="mb-3 md:mb-7 pl-3 md:pl-5 text-sm font-semibold text-black">
@@ -43,7 +45,7 @@ export default function Navbar(){
                 </div>
             </div>
             <div className="">
-                <Dashboard/>
+                <UpperNavbar/>
             </div>
         </div>
     );

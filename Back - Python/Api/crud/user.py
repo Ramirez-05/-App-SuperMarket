@@ -49,7 +49,7 @@ def disabled_users(db: Session):
 #funcion para traer los usuarios activos
 def active_users(db: Session):
         try:
-            active_users = db.query(User).filter(User.id_role == 1).filter(User.estado == True).all()
+            active_users = db.query(User).filter(User.id_role == 2).filter(User.estado == True).all()
             return active_users
         except Exception as e:
             print(f"Error al obtener usuarios: {str(e)}", file=sys.stderr)

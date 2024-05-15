@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Containerstatistics from "./Containerstatistics";
+import ContainerstatisticsMain from "./Containerstatistics/Containerstatistics"
 
-export default function Dashboard() {
+/*Esta funcion se encarga del Navbar superior el cual tiene dos botones que redirigen
+ al login y al crear cuenta*/
+export default function UpperNavbar() {
     return (
         <div className="bg-white w-full">
             {/* Navbar login-registrarse */}
@@ -27,7 +29,7 @@ export default function Dashboard() {
                 </div>
 
                 <div className="mt-20 bg-white h-auto w-full">
-                    <Containerstatistics/>
+                    <ContainerstatisticsMain/> 
                 </div>
             </div>
         </div>
