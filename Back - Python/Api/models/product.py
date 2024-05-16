@@ -13,6 +13,5 @@ class Producto(Base):
     id_categoria = Column(Integer, ForeignKey('categorias.id_categoria'), nullable=False)
     precio = Column(DECIMAL(10, 2), nullable=False)
 
-    category = relationship("Categoria", back_populates="productos")
-
-    stock = relationship("Stock", back_populates="productos")
+    categoria = relationship("Categoria", back_populates="productos")
+    stocks = relationship("Stock", back_populates="producto")

@@ -13,4 +13,5 @@ class Stock(Base):
     estado = Column(Boolean, nullable=False)
     fecha_vencimiento = Column(Date, nullable=False)
 
-    user = relationship("User", back_populates="stock")
+    usuarios = relationship("User", back_populates="stock")
+    producto = relationship("Producto", back_populates="stocks")
