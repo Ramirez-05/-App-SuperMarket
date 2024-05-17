@@ -15,8 +15,9 @@ export default function App() {
         <Route exact path='/createaccount' element={<CreateAccount />} />
         <Route exact path='/' element={<SideNavbar/>} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/productsdashboard" element={<ProductsDashboard />} />
         <Route path="/homepage" element={<Homepage />} />
-        <Route path="/productosdashboard" elemement={<ProductsDashboard />} />
+        
 
       </Routes>
     </Router>
