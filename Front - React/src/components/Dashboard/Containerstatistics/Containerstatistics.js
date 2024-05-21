@@ -13,14 +13,20 @@ export default function ContainerStadisticsMain() {
     <div>
       <div className="flex flex-col justify-between items-center border-gray-950">
         {/* Primer fila */}
-        <div className="flex space-x-4 w-full">
-          <ActiveUsersDashboard />
-          <DueDateDashboard />
-          <InactiveUsersDashboard />
-          <OnlineUsersDashboard />
-
+        <div className="flex space-x-4 w-full ">
+        <div className="border-2 border-gray-400 rounded-3xl shadow p-4">
+            <ActiveUsersDashboard />
+          </div>
+          <div className="border-2 border-gray-400 rounded-3xl shadow p-4">
+            <DueDateDashboard />
+          </div>
+          <div className="border-2 border-gray-400 rounded-3xl shadow p-4">
+            <InactiveUsersDashboard />
+          </div>
+          <div className="border-2 border-gray-400 rounded-3xl shadow p-4">
+            <OnlineUsersDashboard />
+          </div>
         </div>
-
         {/* Segunda fila */}
         <div className="flex space-x-4 mt-4 w-full"></div>
       </div>
