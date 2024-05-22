@@ -5,7 +5,9 @@ import CreateAccount from './components/CreateAccount';
 import NotFound from './components/NotFound';
 import Homepage from './components/Homepage/Homepage';
 import SideNavbar from './components/Dashboard/SideNavbar';
-import ProductsDashboard from './components/Dashboard/Products';
+import TableComponentProducts from './components/Dashboard/ProductsDataTable';
+import TableComponentUsers from './components/Dashboard/UserDataTable';
+
 
 export default function App() {
   return (
@@ -15,7 +17,8 @@ export default function App() {
         <Route exact path='/createaccount' element={<CreateAccount />} />
         <Route exact path='/' element={<SideNavbar/>} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/productsdashboard" element={<ProductsDashboard />} />
+        <Route path="/productsdashboard" element={<TableComponentProducts />} />
+        <Route path="/usersdashboard" element={<TableComponentUsers />} />
         <Route path="/homepage" element={<Homepage />} />
         
 
