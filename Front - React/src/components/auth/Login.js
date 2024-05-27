@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Auth } from '../../controllers/PostControllers/Auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import imglogin from '../../assets/imglogin.svg';
 
 export default function Login() {
@@ -14,6 +14,7 @@ export default function Login() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,6 +23,11 @@ export default function Login() {
 
     try {
       const response = await Auth(formData);
+      if(response.role === 'Admin'){
+        navigate("/admindashboard");
+      } else {
+        navigate("/usersdashboard");
+      }
       console.log(response);
     } catch (error) {
       console.log("Error al enviar datos", error);

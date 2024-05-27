@@ -7,7 +7,7 @@ import Homepage from './components/Homepage/Homepage';
 import SideNavbar from './components/Dashboard/SideNavbar';
 import TableComponentProducts from './components/Dashboard/ProductsDataTable';
 import TableComponentUsers from './components/Dashboard/UserDataTable';
-
+import UsersDashboard from './components/Dashboard/UsersDashboard';
 
 export default function App() {
   return (
@@ -15,11 +15,12 @@ export default function App() {
       <Routes>
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/createaccount' element={<CreateAccount />} />
-        <Route exact path='/dashboard' element={<SideNavbar/>} />
+        <Route exact path='/admindashboard' element={<SideNavbar/>} />
         <Route path="*" element={<NotFound />} />
         <Route path="/productsdashboard" element={<TableComponentProducts />} />
-        <Route path="/usersdashboard" element={<TableComponentUsers />} />
+        <Route path="/tableuserdashboard" element={<TableComponentUsers />} />
         <Route path="/" element={<Homepage />} />
+        <Route path="/usersdashboard" element={<UsersDashboard />} />
       </Routes>
     </Router>
   );
