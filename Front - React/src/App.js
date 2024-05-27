@@ -15,13 +15,11 @@ export default function App() {
       <Routes>
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/createaccount' element={<CreateAccount />} />
-        <Route exact path='/' element={<SideNavbar/>} />
+        <Route exact path='/dashboard' element={<SideNavbar/>} />
         <Route path="*" element={<NotFound />} />
         <Route path="/productsdashboard" element={<TableComponentProducts />} />
         <Route path="/usersdashboard" element={<TableComponentUsers />} />
-        <Route path="/homepage" element={<Homepage />} />
-        
-
+        <Route path="/" element={<Homepage />} />
       </Routes>
     </Router>
   );

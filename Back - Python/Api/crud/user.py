@@ -1,9 +1,9 @@
 from Api.models.user import User
 from sqlalchemy.orm import Session
-from Api.schemas.user import UserCreate,GetUser, UserRead
+from Api.schemas.user import UserCreate,GetUser, UserEmail
 from fastapi import HTTPException
 from core.security import get_hashed_password
-from core.utils import generateuser_id
+from core.utils import generateuser_id, get_user_by_correo
 import sys
 
 def create_new_user(persona: int, usuario: UserCreate, role: int, db:Session) :
@@ -54,4 +54,16 @@ def active_users(db: Session):
         except Exception as e:
             print(f"Error al obtener usuarios: {str(e)}", file=sys.stderr)
             raise HTTPException(status_code=500, detail=f"No se pudo obtener usuarios: {str(e)}")
+        
+#######################################################################################################
+#funcion especifica para traer el role de un usuario y usarlo para el auth al iniciar sesion
+def role_user(correo: str, db: Session):
+    try:
+        user = get_user_by_correo(correo, db)
+        if not user:
+            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        return user.role  # Devolver solo el rol del usuario
+    except Exception as e:
+        print(f"Error al obtener usuario: {str(e)}", file=sys.stderr)
+        raise HTTPException(status_code=500, detail=f"No se pudo obtener el usuario: {str(e)}")
             

@@ -9,6 +9,7 @@ import string
 from typing import Optional
 from sqlalchemy.orm import Session
 from Api.models.role import Rol
+from Api.schemas.user import UserEmail
 
 # Función para obtener una persona por su cédula
 def get_person_by_cedula(persona: PersonBase ,db:Session):
@@ -19,6 +20,9 @@ def get_person_by_cedula(persona: PersonBase ,db:Session):
 def get_user_by_id(id_usuario: str ,db:Session):
     user = db.query(User).filter(User.id_usuario == id_usuario).first()
     return user
+
+def get_user_by_correo(correo: str, db: Session):
+    return db.query(User).filter(User.correo == correo).first()
 
 # Función para verificar si el servidor de base de datos está disponible y acepta conexiones
 def serverStatus(db):
