@@ -38,22 +38,21 @@ def save_code_token(token:str, db: Session):
         raise HTTPException(status_code=500,detail=f"no se pudo agregar token: {str(e)}")
 
 # Función para cerrar la sesión eliminando el token de la base de datos y las cookies
-def close_session(token:str, db:Session, response: Response):
+def close_session(token: str, db: Session, response: Response):
     try:
-        #busca en la db si se encuentra el token
+        # Busca en la db si se encuentra el token
         token_for_delete = db.query(Token).filter(Token.token == token).first()
         if token_for_delete:
             db.delete(token_for_delete)
             db.commit()
-            #elimina las cookies que sea igual a la de la base de datos
-            response.delete_cookie("ADT")
-            return ("EL TOKEN ELIMINADO ES: ",token_for_delete)
+            # Elimina las cookies que sean iguales a las de la base de datos
+            response.delete_cookie("ADT") 
+            return f"EL TOKEN ELIMINADO ES: {token_for_delete.token}"
         else:
             raise HTTPException(status_code=404, detail="Token no encontrado")
     except Exception as e:
-        print(f"error al cerrar sesion: {str(e)}",file=sys.stderr)
-        raise HTTPException(status_code=500,detail=f"no se pudo cerrar sesion: {str(e)}")
-    
+        print(f"error al cerrar sesión: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"no se pudo cerrar sesión: {str(e)}")
 
 #Funcion encargada de traer la cantidad de tokens que hay en la db
 def token_counter(db: Session):

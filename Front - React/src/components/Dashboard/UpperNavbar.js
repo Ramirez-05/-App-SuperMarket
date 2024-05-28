@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ContainerstatisticsMain from "./Containerstatistics/Containerstatistics";
+import { CloseSession } from "../../controllers/DeleteControllers/CloseSession";
+
+
 
 /*Esta funcion se encarga del Navbar superior el cual tiene dos botones que redirigen
  al login y al crear cuenta*/
 export default function UpperNavbar() {
+
   return (
     <div className="bg-white w-full">
       {/* Navbar login-registrarse */}
@@ -33,8 +37,9 @@ export default function UpperNavbar() {
         </button>
          </Link>
     
-        <Link className="mr-3 md:mr-10 font-bold" to="/">
+        <Link className="mr-3 md:mr-10 font-bold" to="/Login">
           <button
+          onClick={() => CloseSession()}
             type="button"
             className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
                  focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
