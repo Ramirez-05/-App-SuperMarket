@@ -67,13 +67,13 @@ async def db_tokens_counter(db: Session = Depends(get_session)):
 async def verify_and_delete_token(request: Request, response: Response, db: Session = Depends(get_session)):
     token = request.cookies.get("ADT")
     if not token:
-        raise HTTPException(status_code=409, detail="No token found in cookies")
+        return False
 
     user, status = await verify_token(token, db)
     if status == "expired":
         close_session(token, db, response)
-        raise HTTPException(status_code=402, detail="Token expired and removed")
+        return False
     elif status == "invalid":
-        raise HTTPException(status_code=403, detail="Invalid token")
+        return False
 
     return True

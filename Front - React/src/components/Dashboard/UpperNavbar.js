@@ -1,21 +1,40 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ContainerstatisticsMain from "./Containerstatistics/Containerstatistics";
 import { VerifyToken } from "../../controllers/DeleteControllers/VerifyToken";
 import { CloseSession } from "../../controllers/DeleteControllers/CloseSession";
 
 export default function UpperNavbar() {
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const fetchToken = async () => {
+    const verifyTokenAndRedirect = async () => {
       try {
         const token = await VerifyToken();
-        console.log(token);
+        if (!token) {
+          navigate('/login');
+        }
       } catch (error) {
         console.log(error);
       }
     };
-    fetchToken();
-  }, []);
+
+    // Llama a verifyTokenAndRedirect al inicio para la primera verificación
+    verifyTokenAndRedirect();
+
+    // Luego, establece un intervalo para verificar periódicamente
+    const checkTokenInterval = setInterval(() => {
+      verifyTokenAndRedirect();
+    }, 60000); // Intervalo de 1 minuto (60000 milisegundos)
+
+    // Limpia el intervalo cuando el componente se desmonta
+    return () => clearInterval(checkTokenInterval);
+  }, [navigate]); // navigate como única dependencia para asegurar una única inicialización
+
+  const handleLogout = () => {
+    CloseSession();
+    navigate('/login');
+  };
 
   return (
     <div className="bg-white w-full">
@@ -43,16 +62,16 @@ export default function UpperNavbar() {
           </button>
         </Link>
     
-        <Link className="mr-3 md:mr-10 font-bold" to="/Login">
+        <div className="mr-3 md:mr-10 font-bold">
           <button
-          onClick={() => CloseSession()}
+            onClick={handleLogout}
             type="button"
             className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
                  focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
           >
             Cerrar Sesion
           </button>
-        </Link>
+        </div>
       </div>
       <hr className="shadow-lg mt-9 relative" />
       <div className="ml-44 md:ml-20 grid md:justify-center justify-center mt-14 w-full">
