@@ -6,7 +6,7 @@ import axios from "axios";
     const response = await axios.delete('http://localhost:8000/auth/log-out');
     return response.data; // Almacenar datos recibidos en el estado
   } catch (error) {
-    console.error('Error al eliminar token:', error);
+    console.error('Error al cerrar sesion:', error);
     throw error;
   }
 }

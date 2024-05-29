@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCookie } from "./SetCookies"; // Asumiendo que importas correctamente la función setCookie
+import Cookies from "js-cookie"; // Importar js-cookie
 
 export const Auth = async (authData) => {
   try {
@@ -14,7 +14,7 @@ export const Auth = async (authData) => {
     console.log("Token recibido:", token);
 
     // Guardar el token en las cookies
-    setCookie("ADT", token, { path: '/' });
+    Cookies.set("ADT", token, { path: '/' });
 
     // Obtener el rol del usuario
     const role = await RoleAuth(authData.username);
@@ -26,6 +26,7 @@ export const Auth = async (authData) => {
     throw error;
   }
 }
+
 
 export const RoleAuth = async (username) => {
   try {

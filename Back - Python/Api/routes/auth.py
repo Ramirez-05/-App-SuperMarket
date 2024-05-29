@@ -63,17 +63,17 @@ async def db_tokens_counter(db: Session = Depends(get_session)):
     print("Entro a el contador de tokens")
     return token_counter(db)
 
-@router.post("/verify-token")
+@router.get("/verify-token")
 async def verify_and_delete_token(request: Request, response: Response, db: Session = Depends(get_session)):
     token = request.cookies.get("ADT")
     if not token:
-        raise HTTPException(status_code=401, detail="No token found in cookies")
+        raise HTTPException(status_code=409, detail="No token found in cookies")
 
     user, status = await verify_token(token, db)
     if status == "expired":
         close_session(token, db, response)
-        raise HTTPException(status_code=401, detail="Token expired and removed")
+        raise HTTPException(status_code=402, detail="Token expired and removed")
     elif status == "invalid":
-        raise HTTPException(status_code=401, detail="Invalid token")
+        raise HTTPException(status_code=403, detail="Invalid token")
 
-    return {"user": user, "status": "Token is valid"}
+    return True

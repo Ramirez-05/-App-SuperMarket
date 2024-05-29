@@ -18,7 +18,7 @@ def verify_password(plain_password: str, hashed_password: str):
 # Función para crear un token JWT
 def create_access_token(data: dict):
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=1)
+    expire = datetime.utcnow() + timedelta(minutes=10)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return encoded_jwt
