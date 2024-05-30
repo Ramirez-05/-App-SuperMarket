@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import ContainerstatisticsMain from "./Containerstatistics/Containerstatistics";
-import VerifyTokenComponent from "./VerifyToken";
+import ContainerstatisticsMain from "../Containerstatistics/Containerstatistics";
+import VerifyTokenComponent from "../../VerifyToken";
 
 export default function UpperNavbar() {
    VerifyTokenComponent();

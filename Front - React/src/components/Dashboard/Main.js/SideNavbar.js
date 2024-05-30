@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import home from "../Dashboard/icons/home.svg";
-import contact from "../Dashboard/icons/contact.svg";
-import statistics from "../Dashboard/icons/statistics.svg";
-import UpperNavbar from "./UpperNavbar";
+import home from "../icons/home.svg";
+import contact from "../icons/contact.svg";
+import statistics from "../icons/statistics.svg";
+import UpperNavbar from "../Main.js/UpperNavbar";
 //Funcion que maneja todo el componente del menu desplegable
 export default function SideNavbar() {
   //Estado del menu, inicia sin desplegarse

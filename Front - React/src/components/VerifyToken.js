@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { VerifyToken } from "../../controllers/DeleteControllers/VerifyToken";
+import { VerifyToken } from "../controllers/GetControllers/VerifyToken";
 
 
 export default function VerifyTokenComponent (){
