@@ -1,10 +1,11 @@
 from Api.models.person import Person
+from Api.models.user import User
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.sql import text
-from Api.schemas.person import PersonBase
+from Api.schemas.person import PersonBase, GetPerson
 from Api.schemas.role import RoleRead
-from Api.schemas.user import UserBase
+from Api.schemas.user import UserBase, UserCreate
 from Api.crud.user import create_new_user
 from fastapi import HTTPException
 from core.utils import get_person_by_cedula
@@ -49,5 +50,40 @@ def update_person(persona: PersonBase, db: Session):
         raise HTTPException(status_code=500,detail=f"no se pudo actualizar la persona: {str(e)}")    
 
 ###############################################################################################################
+#Funcion encargada de traer todos los datos para agregarlos
+#a la datatable users en el dashboard
+def get_person(getperson: GetPerson, db: Session):
+    try:
+        # Realizar la consulta unida y seleccionar los campos específicos
+        query = (
+            db.query(User.id_usuario,User.estado, User.correo, User.id_role, Person.nombres, 
+            Person.apellidos, Person.direccion, Person.telefono)
+            .join(Person, User.id_persona == Person.id_persona)
+            .offset(getperson.skip)
+            .limit(getperson.limit)
+            .all()
+        )
+        
+        #Es importando formatear el resultado para poder retornarlo
+        result = [
+            {
+                "id_usuario": user_id_usuario,
+                "estado": user_estado,
+                "correo":user_correo,
+                "id_role": user_id_role,
+                
+                "person": {
+                    "nombres": person_nombres,
+                    "apellidos": person_apellidos,
+                    "direccion": person_direccion,
+                    "telefono": person_telefono
+                }
+            }
+            for user_id_usuario, user_estado, user_correo, user_id_role, person_nombres, person_apellidos, person_direccion, person_telefono in query
+        ]
+        
+        return result
 
-
+    except Exception as e:
+        print(f"Error al obtener usuarios: {str(e)}", file=sys.stderr)
+        raise HTTPException(status_code=500, detail=f"No se pudo obtener personas: {str(e)}")

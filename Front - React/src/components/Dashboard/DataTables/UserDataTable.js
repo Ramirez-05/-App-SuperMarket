@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import $ from "jquery";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.min.css";
-import { DatatableUsers } from "../../../controllers/GetControllers/DatatableUsers";
-import VerifyTokenComponent  from "../Main.js/VerifyToken";
+import { DatatableUsers } from "../../../controllers/PostControllers/DatatableUsers";
+import VerifyTokenComponent from "../Main/VerifyToken";
 
 const SetColor = (estado) => {
   return estado === 'Activo' ? 'bg-green-600' : 'bg-red-500';
@@ -13,12 +13,11 @@ function verifystatus(estado) {
   return estado === true ? 'Activo' : 'Inactivo';
 }
 
-function verifyrole(id_role){
-    return id_role === 1 ? 'Admin' : 'Usuario';
+function verifyrole(id_role) {
+  return id_role === 1 ? 'Admin' : 'Usuario';
 }
 
 const TableComponentUsers = () => {
-
   VerifyTokenComponent();
   const [users, setUsers] = useState([]);
   const tableRef = useRef(null);
@@ -50,12 +49,23 @@ const TableComponentUsers = () => {
         info: true,
         lengthMenu: [5, 10, 25, 50, 100],
         responsive: true,
+        autoWidth: false,
       });
     }
   }, [users]);
 
+  const handleUpdate = (userId) => {
+    // Lógica para actualizar usuario con id 'userId'
+    console.log(`Actualizar usuario con ID: ${userId}`);
+  };
+
+  const handleDeactivate = (userId) => {
+    // Lógica para desactivar usuario con id 'userId'
+    console.log(`Desactivar usuario con ID: ${userId}`);
+  };
+
   return (
-    <div className="bg-black">
+    <div className="bg-black min-h-screen">
       <header className="flex justify-between items-center h-24 bg-clip-padding backdrop-filter backdrop-blur-md px-4">
         <div className="flex-1 flex justify-center">
           <h1 className="text-white text-5xl font-bold tracking-widest">
@@ -67,8 +77,8 @@ const TableComponentUsers = () => {
         </button>
       </header>
 
-      <div className="flex justify-center items-start min-h-screen bg-gradient-to-r from-blue-500 to-purple-600">
-        <div className="w-full max-w-7xl">
+      <div className="flex justify-center items-start min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 px-4">
+        <div className="w-full max-w-7xl overflow-x-auto">
           <table
             ref={tableRef}
             id="myTable"
@@ -77,7 +87,7 @@ const TableComponentUsers = () => {
             <thead className="bg-gray-800 text-white">
               <tr>
                 <th className="px-6 py-3 text-sm font-bold uppercase tracking-wider">
-                  Id del Usuario
+                  Estado
                 </th>
                 <th className="px-6 py-3 text-sm font-bold uppercase tracking-wider">
                   Correo
@@ -86,7 +96,19 @@ const TableComponentUsers = () => {
                   Rol
                 </th>
                 <th className="px-6 py-3 text-sm font-bold uppercase tracking-wider">
-                  Estado
+                  Nombres
+                </th>
+                <th className="px-6 py-3 text-sm font-bold uppercase tracking-wider">
+                  Apellidos
+                </th>
+                <th className="px-6 py-3 text-sm font-bold uppercase tracking-wider">
+                  Dirección
+                </th>
+                <th className="px-6 py-3 text-sm font-bold uppercase tracking-wider">
+                  Teléfono
+                </th>
+                <th className="px-6 py-3 text-sm font-bold uppercase tracking-wider">
+                  Opciones
                 </th>
               </tr>
             </thead>
@@ -94,7 +116,9 @@ const TableComponentUsers = () => {
               {users.map((user) => (
                 <tr key={user.id_usuario}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">
-                    {user.id_usuario}
+                    <span className={`inline-flex items-center justify-center px-2 py-1 font-bold leading-none text-white rounded-full ${SetColor(user.estado)}`}>
+                      {user.estado}
+                    </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
                     {user.correo}
@@ -102,10 +126,31 @@ const TableComponentUsers = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
                     {user.id_role}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-left">
-                    <span className={`inline-flex items-center justify-center px-2 py-1 font-bold leading-none text-white rounded-full ${SetColor(user.estado)}`}>
-                      {user.estado}
-                    </span>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
+                    {user.person.nombres}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
+                    {user.person.apellidos}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
+                    {user.person.direccion}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
+                    {user.person.telefono}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left">
+                    <button
+                      onClick={() => handleUpdate(user.id_usuario)}
+                      className="text-purple-800 hover:text-black font-bold"
+                    >
+                      Actualizar
+                    </button>
+                    <button
+                      onClick={() => handleDeactivate(user.id_usuario)}
+                      className="ml-2 text-red-500 hover:text-black font-bold"
+                    >
+                      Desactivar
+                    </button>
                   </td>
                 </tr>
               ))}

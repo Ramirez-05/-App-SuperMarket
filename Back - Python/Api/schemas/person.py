@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class PersonBase(BaseModel):
     cedula: str
@@ -10,5 +11,8 @@ class PersonBase(BaseModel):
 class PersonRead(BaseModel):
     id_persona: int
 
+class GetPerson(BaseModel):
+    skip: Optional[int] = None
+    limit: Optional[int] = None
 
 

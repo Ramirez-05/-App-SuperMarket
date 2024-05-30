@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from Api.crud.person import create_new_person_user,update_person
-from Api.schemas.person import PersonBase
+from Api.crud.person import create_new_person_user,update_person, get_person
+from Api.schemas.person import PersonBase, GetPerson
 from Api.schemas.role import RoleRead
 from Api.schemas.user import UserBase,UserRead
 from db.connection import get_session
@@ -25,3 +25,8 @@ async def fuction_update_person(persona: PersonBase, db:Session = Depends(get_se
     if not userStatus(current_user.id_usuario,db):
         raise HTTPException(status_code=401, detail="Tu usuario esta inactivo")
     return update_person(persona,db)
+
+@router.post("/get-persons")
+async def get_all_person(getperson: GetPerson = Depends(GetPerson),db: Session = Depends(get_session)):
+        print("Entro a la funcion obtener personas")
+        return get_person(getperson,db)         
