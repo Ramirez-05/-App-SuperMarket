@@ -4,6 +4,9 @@ import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.min.css";
 import { DatatableUsers } from "../../controllers/GetControllers/DatatableUsers";
 
+const SetColor = (estado) => {
+  return estado === 'Activo' ? 'bg-green-600' : 'bg-red-500';
+}
 
 function verifystatus(estado) {
   return estado === true ? 'Activo' : 'Inactivo';
@@ -37,33 +40,15 @@ const TableComponentUsers = () => {
   }, []);
 
   useEffect(() => {
-    if (users.length > 0) {
-      if (!tableRef.current) {
-        const table = $("#myTable").DataTable({
-          paging: true,
-          searching: true,
-          info: true,
-          lengthMenu: [5, 10, 25, 50, 100],
-          responsive: true,
-          data: users,
-          columns: [
-            { data: "id_usuario" },
-            { data: "correo" },
-            { data: "id_role" },
-            { data: "estado" }
-          ],
-        });
-
-        tableRef.current = table;
-      }
+    if (users.length > 0 && tableRef.current) {
+      $(tableRef.current).DataTable({
+        paging: true,
+        searching: true,
+        info: true,
+        lengthMenu: [5, 10, 25, 50, 100],
+        responsive: true,
+      });
     }
-
-    return () => {
-      if (tableRef.current) {
-        tableRef.current.destroy(false);
-        tableRef.current = null;
-      }
-    };
   }, [users]);
 
   return (
@@ -82,6 +67,7 @@ const TableComponentUsers = () => {
       <div className="flex justify-center items-start min-h-screen bg-gradient-to-r from-blue-500 to-purple-600">
         <div className="w-full max-w-7xl">
           <table
+            ref={tableRef}
             id="myTable"
             className="display mx-auto min-w-full bg-white rounded-lg shadow overflow-hidden"
           >
@@ -101,9 +87,9 @@ const TableComponentUsers = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200 ">
+            <tbody className="bg-white divide-y divide-gray-200">
               {users.map((user) => (
-                <tr key={user.id_persona}>
+                <tr key={user.id_usuario}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left text-gray-900">
                     {user.id_usuario}
                   </td>
@@ -113,8 +99,10 @@ const TableComponentUsers = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
                     {user.id_role}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
-                    {user.estado}
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-left">
+                    <span className={`inline-flex items-center justify-center px-2 py-1 font-bold leading-none text-white rounded-full ${SetColor(user.estado)}`}>
+                      {user.estado}
+                    </span>
                   </td>
                 </tr>
               ))}

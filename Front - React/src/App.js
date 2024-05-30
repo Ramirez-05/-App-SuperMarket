@@ -17,8 +17,8 @@ export default function App() {
         <Route exact path='/createaccount' element={<CreateAccount />} />
         <Route exact path='/admindashboard' element={<SideNavbar/>} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/productsdashboard" element={<TableComponentProducts />} />
-        <Route path="/tableuserdashboard" element={<TableComponentUsers />} />
+        <Route path="/tableproductsdashboard" element={<TableComponentProducts />} />
+        <Route path="/tableusersdashboard" element={<TableComponentUsers />} />
         <Route path="/" element={<Homepage />} />
         <Route path="/usersdashboard" element={<UsersDashboard />} />
       </Routes>

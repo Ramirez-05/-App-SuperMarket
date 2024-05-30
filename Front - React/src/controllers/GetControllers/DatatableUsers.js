@@ -10,4 +10,3 @@ import axios from "axios";
     throw error;
   }
 }
-
