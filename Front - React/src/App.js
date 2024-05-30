@@ -4,7 +4,7 @@ import Login from './components/auth/Login';
 import CreateAccount from './components/CreateAccount';
 import NotFound from './components/NotFound';
 import Homepage from './components/Homepage/Homepage';
-import SideNavbar from './components/Dashboard/Main.js/SideNavbar';
+import SideNavbar from './components/Dashboard/Main/SideNavbar';
 import TableComponentProducts from './components/Dashboard/DataTables.js/ProductsDataTable';
 import TableComponentUsers from './components/Dashboard/DataTables.js/UserDataTable';
 import UsersDashboard from './components/UsersDashboard';
