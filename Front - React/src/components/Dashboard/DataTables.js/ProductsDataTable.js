@@ -3,8 +3,10 @@ import $ from "jquery";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.min.css";
 import { DatatableProducts } from "../../../controllers/GetControllers/DatatableProducts";
+import VerifyTokenComponent from "../Main.js/VerifyToken"
 
 const TableComponentProducts = () => {
+  VerifyTokenComponent();
   const [products, setProducts] = useState([]);
   const tableRef = useRef(null);
 

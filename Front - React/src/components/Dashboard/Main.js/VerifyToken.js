@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { VerifyToken } from "../controllers/GetControllers/VerifyToken";
+import { VerifyToken } from "../../../controllers/GetControllers/VerifyToken";
 
 
 export default function VerifyTokenComponent (){
@@ -24,7 +24,7 @@ useEffect(() => {
   // Luego, establece un intervalo para verificar periódicamente
   const checkTokenInterval = setInterval(() => {
     verifyTokenAndRedirect();
-  }, 60000); // Intervalo de 1 minuto (60000 milisegundos)
+  }, 6000); // Intervalo de 1 minuto (60000 milisegundos)
 
   // Limpia el intervalo cuando el componente se desmonta
   return () => clearInterval(checkTokenInterval);

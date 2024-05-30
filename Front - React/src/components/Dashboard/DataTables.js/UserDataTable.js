@@ -3,6 +3,7 @@ import $ from "jquery";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.min.css";
 import { DatatableUsers } from "../../../controllers/GetControllers/DatatableUsers";
+import VerifyTokenComponent  from "../Main.js/VerifyToken";
 
 const SetColor = (estado) => {
   return estado === 'Activo' ? 'bg-green-600' : 'bg-red-500';
@@ -17,6 +18,8 @@ function verifyrole(id_role){
 }
 
 const TableComponentUsers = () => {
+
+  VerifyTokenComponent();
   const [users, setUsers] = useState([]);
   const tableRef = useRef(null);
 
