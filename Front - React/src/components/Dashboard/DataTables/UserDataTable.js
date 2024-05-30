@@ -147,7 +147,7 @@ const TableComponentUsers = () => {
                     </button>
                     <button
                       onClick={() => handleDeactivate(user.id_usuario)}
-                      className="ml-2 text-red-500 hover:text-black font-bold"
+                      className="ml-7 text-red-500 hover:text-black font-bold"
                     >
                       Desactivar
                     </button>
