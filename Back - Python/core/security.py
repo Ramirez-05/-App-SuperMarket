@@ -25,7 +25,6 @@ def create_access_token(data: dict):
 
 # Función para verificar si un token JWT es válido
 async def verify_token(token: str, db: Session):
-    from Api.crud.auth import close_session  # Importar aquí para evitar importaciones circulares
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         user: str = payload.get("sub")

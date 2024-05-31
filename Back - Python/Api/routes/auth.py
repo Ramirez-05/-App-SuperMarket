@@ -52,7 +52,7 @@ async def reset_password(resetPassword: ResetPassword, db: Session = Depends(get
     return {"message": "ok"}
 
 #Ruta para cerrar sesion 
-@router.post("/log-out")
+@router.delete("/log-out")
 async def delete_token_route(request: Request,response:Response, db: Session = Depends(get_session)):
     token = request.cookies.get('ADT')
     return close_session(token,db,response)
