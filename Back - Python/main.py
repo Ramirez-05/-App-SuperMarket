@@ -19,8 +19,7 @@ app = FastAPI(
 
 # Configurar CORS con especificidad
 origins = [
-    "http://localhost:3000",  # Origen permitido para las solicitudes
-    "https://example.com",    # También puedes agregar otros orígenes si es necesario
+    "http://localhost:3000"
 ]
 
 app.add_middleware(

@@ -31,7 +31,7 @@ async def get_role_user(user_email: UserEmail, db: Session = Depends(get_session
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     return role
 
-@router.put("/update-user")
+@router.post("/update-user")
 async def put_update_user(user: UserUpdate, db: Session = Depends(get_session)):
       print("Entro a la funcion actualizar usuario")
       user = update_user(user, db)

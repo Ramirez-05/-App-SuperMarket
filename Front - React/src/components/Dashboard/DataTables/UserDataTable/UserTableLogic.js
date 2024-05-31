@@ -52,6 +52,7 @@ const useTableLogic = () => {
 
   const handleUpdate = (userId) => {
     console.log(`Actualizar usuario con ID: ${userId}`);
+    
     setShowModal(true); // Mostrar el modal al hacer clic en "Actualizar"
   };
 

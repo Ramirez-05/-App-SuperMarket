@@ -16,7 +16,7 @@ async def add_person(persona: PersonBase,user:UserBase,role:RoleRead ,db: Sessio
         return create_new_person_user(persona,user,role,db)
 
 
-@router.put("/update-persona", response_model=PersonBase)
+@router.post("/update-persona", response_model=PersonBase)
 async def fuction_update_person(persona: PersonBase, db:Session = Depends(get_session), current_user: UserRead = Depends(get_current_user)):
     if not serverStatus(db):
         raise HTTPException(status_code=503, detail="La base de datos no esta disponible")
