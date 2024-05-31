@@ -1,9 +1,9 @@
 from Api.models.user import User
 from sqlalchemy.orm import Session
-from Api.schemas.user import UserCreate,GetUser, UserEmail
+from Api.schemas.user import UserCreate,GetUser, UserUpdate
 from fastapi import HTTPException
 from core.security import get_hashed_password
-from core.utils import generateuser_id, get_user_by_correo
+from core.utils import generateuser_id, get_user_by_correo, get_user_by_id
 import sys
 
 def create_new_user(persona: int, usuario: UserCreate, role: int, db:Session) :
@@ -66,4 +66,20 @@ def role_user(correo: str, db: Session):
     except Exception as e:
         print(f"Error al obtener usuario: {str(e)}", file=sys.stderr)
         raise HTTPException(status_code=500, detail=f"No se pudo obtener el usuario: {str(e)}")
-            
+
+##########################################################################################
+#Funcion encargada de actualizar un usuario 
+def update_user(usuario: UserUpdate, db: Session):
+    db_usuario = get_user_by_correo(usuario, db)
+    if db_usuario is None:
+        raise HTTPException(status_code=404, detail="El usuario no existe")
+    try:
+        db_usuario.id_role = usuario.id_role
+        db_usuario.correo = usuario.correo
+        db.commit()
+        db.refresh(db_usuario)
+        return db_usuario
+    except Exception as e:
+        db.rollback()
+        print(f"error al actualizar usuario: {str(e)}",file=sys.stderr)
+        raise HTTPException(status_code=500,detail=f"no se pudo actualizar el usuario: {str(e)}")    

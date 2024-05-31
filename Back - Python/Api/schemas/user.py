@@ -22,3 +22,8 @@ class UserEmail(BaseModel):
 class GetUser(BaseModel):
     skip: Optional[int] = None
     limit: Optional[int] = None
+
+class UserUpdate(UserEmail):
+    correo: Optional[EmailStr] = None
+    id_usuario: Optional[int] = None
+    id_role: Optional[int] = None

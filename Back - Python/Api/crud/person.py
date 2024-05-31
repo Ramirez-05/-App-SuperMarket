@@ -87,3 +87,5 @@ def get_person(getperson: GetPerson, db: Session):
     except Exception as e:
         print(f"Error al obtener usuarios: {str(e)}", file=sys.stderr)
         raise HTTPException(status_code=500, detail=f"No se pudo obtener personas: {str(e)}")
+    
+

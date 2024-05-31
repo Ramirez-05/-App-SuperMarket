@@ -24,9 +24,11 @@ CREATE TABLE usuarios (
     contrasena TEXT NOT NULL,
     id_role INT NOT NULL,
     estado TINYINT(1) NOT NULL,
+    UNIQUE (id_persona), -- Restricción de unicidad para id_persona
     FOREIGN KEY (id_persona) REFERENCES persona(id_persona),
     FOREIGN KEY (id_role) REFERENCES roles(id_role)
 );
+
 
 CREATE TABLE solicitudes_restablecimiento_contrasena (
     solicitud_id INT PRIMARY KEY AUTO_INCREMENT,

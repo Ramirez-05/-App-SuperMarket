@@ -27,8 +27,8 @@ def create_access_token(data: dict):
 async def verify_token(token: str, db: Session):
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
-        user: str = payload.get("sub")
-        if user is None:
+        token: str = payload.get("sub")
+        if token is None:
             raise JWTError("Invalid token payload")
 
         expire = payload.get("exp")
@@ -37,9 +37,9 @@ async def verify_token(token: str, db: Session):
             if datetime.now(timezone.utc) > expire_datetime:
                 print("Token expired")
                 return False, "expired"
-        return user, "valid"
+        return token, "valid"
     except jwt.ExpiredSignatureError:
         return False, "expired"
     except JWTError as e:
         print(f"Token verification error: {str(e)}")
-        return None, "invalid"
+        return False, "invalid"
