@@ -70,7 +70,7 @@ def role_user(correo: str, db: Session):
 ##########################################################################################
 #Funcion encargada de actualizar un usuario 
 def update_user(usuario: UserUpdate, db: Session):
-    db_usuario = get_user_by_correo(usuario, db)
+    db_usuario = get_user_by_id(usuario.id_usuario, db)
     if db_usuario is None:
         raise HTTPException(status_code=404, detail="El usuario no existe")
     try:

@@ -6,7 +6,7 @@ import NotFound from './components/NotFound';
 import Homepage from './components/Homepage/Homepage';
 import SideNavbar from './components/Dashboard/Main/SideNavbar';
 import TableComponentProducts from './components/Dashboard/DataTables/ProductsDataTable';
-import TableComponentUsers from './components/Dashboard/DataTables/UserDataTable';
+import TableComponentUsers from './components/Dashboard/DataTables/UserDataTable/TableComponentUser';
 import UsersDashboard from './components/UsersDashboard';
 
 export default function App() {

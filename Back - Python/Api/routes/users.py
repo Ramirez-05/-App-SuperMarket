@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends,HTTPException
 from db.connection import get_session
 from sqlalchemy.orm import Session
-from Api.schemas.user import GetUser, UserEmail, UserUpdate
+from Api.schemas.user import GetUser, UserEmail, UserUpdate,UserBase
 from Api.crud.user import get_users,disabled_users,active_users, role_user, update_user
 
 
@@ -31,8 +31,8 @@ async def get_role_user(user_email: UserEmail, db: Session = Depends(get_session
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     return role
 
-@router.post("/update-user")
-async def post_update_user(user: UserUpdate, db: Session = Depends(get_session)):
+@router.put("/update-user")
+async def put_update_user(user: UserUpdate, db: Session = Depends(get_session)):
       print("Entro a la funcion actualizar usuario")
       user = update_user(user, db)
-      return user
+      return ("El usuario actualizado fue: ",user.id_usuario,"correo = ",user.correo)
