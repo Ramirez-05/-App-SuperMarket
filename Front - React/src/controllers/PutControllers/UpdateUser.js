@@ -1,12 +1,19 @@
 import axios from "axios";
 
-//Funcion encargada de traer los usuarios para la datatable de el dashboard
-export const UpdateUser = async (UserData) => {
+// Función encargada de actualizar el usuario
+export const UpdateUser = async (correo, userId, rol, token) => {
   try {
-    const { correo, id_usuario, id_role } = UserData;
-    console.log("correo, id_usuario, id_role")
-    console.log(correo, id_usuario, id_role)
-    const response = await axios.post('http://localhost:8000/users/update-user', {UserData
+    console.log("correo:", correo, "id_usuario:", userId, "role:", rol);
+    const response = await axios.put('http://localhost:8000/users/update-user', 
+    {
+      correo: correo, 
+      id_usuario: userId, 
+      id_role: rol
+    }, 
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     });
     return response.data; // Almacenar datos recibidos en el estado
   } catch (error) {
@@ -15,17 +22,20 @@ export const UpdateUser = async (UserData) => {
   }
 }
 
-
-//Funcion encargada de traer los usuarios para la datatable de el dashboard
-export const UpdatePerson = async (PersonData) => {
+// Función encargada de actualizar la persona
+export const UpdatePerson = async (cedula, nombres, apellidos, direccion, telefono, token) => {
   try {
-    const { cedula, nombres, apellidos, direccion, telefono } = PersonData;
-    const response = await axios.post('http://localhost:8000/person/update-persona', {
-      cedula,
-      nombres,
-      apellidos,
-      direccion,
-      telefono
+    const response = await axios.put('http://localhost:8000/person/update-persona', {
+      cedula: cedula,
+      nombres: nombres,
+      apellidos: apellidos,
+      direccion: direccion,
+      telefono: telefono
+    },
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     });
     return response.data; // Almacenar datos recibidos en el estado
   } catch (error) {

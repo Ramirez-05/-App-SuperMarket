@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { UpdatePerson, UpdateUser } from '../../../../controllers/PutControllers/UpdateUser';
 
-export default function ModalUpdateUser({ userId, onClose }) {
+export default function ModalUpdateUser({ cedula, userId, onClose }) {
   const [correo, setCorreo] = useState('');
   const [rol, setRol] = useState('');
   const [nombres, setNombres] = useState('');
@@ -12,9 +12,11 @@ export default function ModalUpdateUser({ userId, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem('ADT'); // Obtener el token de autenticación
+
     try {
-      await UpdateUser({ correo, id_usuario:userId, id_role:rol });
-      await UpdatePerson({ nombres, apellidos, direccion, telefono });
+      await UpdateUser(correo, userId, rol, token); // Pasar el token como parámetro
+      await UpdatePerson(cedula, nombres, apellidos, direccion, telefono, token); // Pasar el token como parámetro
 
       console.log('Datos actualizados correctamente');
       onClose(); // Cierra el modal después de enviar el formulario

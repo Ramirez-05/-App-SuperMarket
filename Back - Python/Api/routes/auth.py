@@ -26,7 +26,7 @@ async def get_current_user(request: Request, db: Session = Depends(get_session))
     token = request.cookies.get("ADT")
     if token is None:
         raise HTTPException(status_code=401, detail="Missing token")
-    user = await verify_token(token)
+    user = await verify_token(token, db)
     if user is False:
         raise HTTPException(status_code=401, detail="Token expired")
     if user is None:

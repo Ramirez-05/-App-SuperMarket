@@ -12,8 +12,8 @@ from Api.models.role import Rol
 from Api.schemas.user import UserEmail
 
 # Función para obtener una persona por su cédula
-def get_person_by_cedula(persona: PersonBase ,db:Session):
-    person = db.query(Person).filter(Person.cedula == persona.cedula).first()
+def get_person_by_cedula(cedula: str,db:Session):
+    person = db.query(Person).filter(Person.cedula == cedula).first()
     return person
 
 # Función para obtener una persona por su id

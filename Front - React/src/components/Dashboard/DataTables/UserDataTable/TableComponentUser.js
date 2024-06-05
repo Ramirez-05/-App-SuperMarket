@@ -5,11 +5,16 @@ import 'datatables.net-dt';
 import 'datatables.net-dt/css/dataTables.dataTables.min.css';
 import { DatatableUsers } from '../../../../controllers/PostControllers/DatatableUsers';
 import VerifyTokenComponent from '../../Main/VerifyToken';
-import ModalUpdateUser from '../UpdateUser/ModalUpdateUser'; 
+import ModalUpdateUser from '../UpdateUser/ModalUpdateUser';
+import { ChangeStatus } from '../../../../controllers/PutControllers/ChangeStatus';
 
 const SetColor = (estado) => {
   return estado === 'Activo' ? 'bg-green-600' : 'bg-red-500';
 };
+
+function verifystatusbutton(estado) {
+  return estado === 'Activo' ? 'Desactivar' : 'Activar';
+}
 
 function verifystatus(estado) {
   return estado === true ? 'Activo' : 'Inactivo';
@@ -23,6 +28,7 @@ const TableComponentUsers = () => {
   VerifyTokenComponent();
   const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
+  const [selectedCedula, setSelectedCedula] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null); // Estado para almacenar el id_usuario seleccionado
   const tableRef = useRef(null);
 
@@ -58,15 +64,30 @@ const TableComponentUsers = () => {
     }
   }, [users]);
 
-  const handleUpdate = (userId) => {
+  const handleUpdate = (cedula, userId) => {
     console.log(`Actualizar usuario con ID: ${userId}`);
+    console.log(`Actualizar persona con cedula: ${cedula}`);
+    setSelectedCedula(cedula);
     setSelectedUserId(userId); // Guarda el id_usuario seleccionado en el estado
     setShowModal(true); // Mostrar el modal al hacer clic en "Actualizar"
   };
 
-  const handleDeactivate = (userId) => {
-    // Lógica para desactivar usuario con id 'userId'
-    console.log(`Desactivar usuario con ID: ${userId}`);
+  const handleDeactivate = async (userId, currentState) => {
+    // Lógica para activar/desactivar usuario con id 'userId'
+    const newStatus = currentState === 'Activo' ? false : true;
+    console.log(`${currentState === 'Activo' ? 'Desactivar' : 'Activar'} usuario con ID: ${userId}`);
+
+    try {
+      await ChangeStatus(userId, newStatus);
+      // Actualiza el estado del usuario en el frontend
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id_usuario === userId ? { ...user, estado: verifystatus(newStatus) } : user
+        )
+      );
+    } catch (error) {
+      console.error('Error al cambiar el estado del usuario:', error);
+    }
   };
 
   return (
@@ -103,6 +124,9 @@ const TableComponentUsers = () => {
                   Rol
                 </th>
                 <th className="px-6 py-3 text-sm font-bold uppercase tracking-wider">
+                  Cedula
+                </th>
+                <th className="px-6 py-3 text-sm font-bold uppercase tracking-wider">
                   Nombres
                 </th>
                 <th className="px-6 py-3 text-sm font-bold uppercase tracking-wider">
@@ -134,6 +158,9 @@ const TableComponentUsers = () => {
                     {user.id_role}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
+                    {user.person.cedula}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
                     {user.person.nombres}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-left text-gray-500">
@@ -147,16 +174,16 @@ const TableComponentUsers = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-left">
                     <button
-                      onClick={() => handleUpdate(user.id_usuario)}
+                      onClick={() => handleUpdate(user.person.cedula, user.id_usuario)}
                       className="text-purple-800 hover:text-black font-bold"
                     >
                       Actualizar
                     </button>
                     <button
-                      onClick={() => handleDeactivate(user.id_usuario)}
-                      className="ml-7 text-red-500 hover:text-black font-bold"
+                      onClick={() => handleDeactivate(user.id_usuario, user.estado)}
+                      className={`ml-7 font-bold ${user.estado === 'Activo' ? 'text-red-500 hover:text-black' : 'text-green-500 hover:text-black'}`}
                     >
-                      Desactivar
+                      {verifystatusbutton(user.estado)}
                     </button>
                   </td>
                 </tr>
@@ -167,7 +194,7 @@ const TableComponentUsers = () => {
       </div>
 
       {/* Modal */}
-      {showModal && <ModalUpdateUser userId={selectedUserId} onClose={() => setShowModal(false)} />}
+      {showModal && <ModalUpdateUser cedula={selectedCedula} userId={selectedUserId} onClose={() => setShowModal(false)} />}
     </div>
   );
 };

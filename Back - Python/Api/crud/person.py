@@ -31,9 +31,9 @@ def create_new_person_user(persona: PersonBase,user:UserBase,role:RoleRead ,db:S
         raise HTTPException(status_code=500,detail=f"no se pudo agregar la persona: {str(e)}")
 
 ###############################################################################################################
-    
+# Función para actualizar una persona
 def update_person(persona: PersonBase, db: Session):
-    db_person = get_person_by_cedula(persona, db)
+    db_person = get_person_by_cedula(persona.cedula, db)
     if db_person is None:
         raise HTTPException(status_code=404, detail="La persona no existe")
     try:
@@ -46,8 +46,8 @@ def update_person(persona: PersonBase, db: Session):
         return db_person
     except Exception as e:
         db.rollback()
-        print(f"error al actualizar persona: {str(e)}",file=sys.stderr)
-        raise HTTPException(status_code=500,detail=f"no se pudo actualizar la persona: {str(e)}")    
+        print(f"Error al actualizar persona: {str(e)}", file=sys.stderr)
+        raise HTTPException(status_code=500, detail=f"No se pudo actualizar la persona: {str(e)}")  
 
 ###############################################################################################################
 #Funcion encargada de traer todos los datos para agregarlos
@@ -56,7 +56,7 @@ def get_person(getperson: GetPerson, db: Session):
     try:
         # Realizar la consulta unida y seleccionar los campos específicos
         query = (
-            db.query(User.id_usuario,User.estado, User.correo, User.id_role, Person.nombres, 
+            db.query(User.id_usuario,User.estado, User.correo, User.id_role, Person.cedula, Person.nombres, 
             Person.apellidos, Person.direccion, Person.telefono)
             .join(Person, User.id_persona == Person.id_persona)
             .offset(getperson.skip)
@@ -73,13 +73,14 @@ def get_person(getperson: GetPerson, db: Session):
                 "id_role": user_id_role,
                 
                 "person": {
+                    "cedula": person_cedula,
                     "nombres": person_nombres,
                     "apellidos": person_apellidos,
                     "direccion": person_direccion,
                     "telefono": person_telefono
                 }
             }
-            for user_id_usuario, user_estado, user_correo, user_id_role, person_nombres, person_apellidos, person_direccion, person_telefono in query
+            for user_id_usuario, user_estado, user_correo, user_id_role,person_cedula, person_nombres, person_apellidos, person_direccion, person_telefono in query
         ]
         
         return result

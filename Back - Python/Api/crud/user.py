@@ -1,6 +1,6 @@
 from Api.models.user import User
 from sqlalchemy.orm import Session
-from Api.schemas.user import UserCreate,GetUser, UserUpdate
+from Api.schemas.user import UserCreate,GetUser, UserUpdate, UserStatus
 from fastapi import HTTPException
 from core.security import get_hashed_password
 from core.utils import generateuser_id, get_user_by_correo, get_user_by_id
@@ -83,3 +83,19 @@ def update_user(usuario: UserUpdate, db: Session):
         db.rollback()
         print(f"error al actualizar usuario: {str(e)}",file=sys.stderr)
         raise HTTPException(status_code=500,detail=f"no se pudo actualizar el usuario: {str(e)}")    
+
+###############################################################################################
+#Funcion encargada de actualizar el estado de un usuario
+def update_status(usuario: UserStatus, db: Session):
+    db_usuario = get_user_by_id(usuario.id_usuario, db)
+    if db_usuario is None:
+        raise HTTPException(status_code=404, detail="El usuario no existe")
+    try:
+        db_usuario.estado = usuario.estado
+        db.commit()
+        db.refresh(db_usuario)
+        return db_usuario
+    except Exception as e:
+        db.rollback()
+        print(f"error al actualizar estado del usuario: {str(e)}",file=sys.stderr)
+        raise HTTPException(status_code=500,detail=f"no se pudo actualizar el estado: {str(e)}")   

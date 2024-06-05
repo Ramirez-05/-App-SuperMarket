@@ -25,5 +25,9 @@ class GetUser(BaseModel):
 
 class UserUpdate(UserEmail):
     correo: Optional[EmailStr] = None
-    id_usuario: Optional[int] = None
+    id_usuario: Optional[str] = None
     id_role: Optional[int] = None
+
+class UserStatus(BaseModel):
+    id_usuario: str
+    estado: bool
