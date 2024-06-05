@@ -5,7 +5,7 @@ from Api.schemas.auth import AuthBase
 from Api.models.token import Token
 from datetime import datetime
 from fastapi import HTTPException, Response
-import sys
+import sys 
 
 # Función para obtener un usuario por su dirección de correo electrónico
 def get_user_by_email(email: str, db: Session):

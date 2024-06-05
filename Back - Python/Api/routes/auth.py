@@ -16,9 +16,8 @@ async def login_for_access_token(auth_data: AuthBase, response: Response, db: Se
     user = authenticate_user(auth_data, db)
     if not user:
         raise HTTPException(status_code=401, detail="Invalid username or password", headers={"WWW-Authenticate": "Bearer"})
-    access_token = create_access_token(data={"sub": user.id_usuario})
+    access_token = create_access_token(data={"sub": user.id_usuario}, db=db)
     response.set_cookie(key="ADT", value=access_token, httponly=True, secure=True, samesite="Strict")
-    save_code_token(access_token, db)
     return {"access_token": access_token, "token_type": "bearer"} 
 
 # Función para obtener el usuario actual basado en el token JWT proporcionado
