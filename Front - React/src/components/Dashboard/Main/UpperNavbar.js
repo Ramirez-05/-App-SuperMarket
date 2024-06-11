@@ -1,51 +1,50 @@
+import React from "react";
+import { CircleUser } from "lucide-react";
 import { Link } from "react-router-dom";
 import ContainerstatisticsMain from "../Containerstatistics/Containerstatistics";
 import VerifyTokenComponent from "./VerifyToken";
-import {CloseSession} from "../../../controllers/DeleteControllers/CloseSession"
-
-
+import { CloseSession } from "../../../controllers/DeleteControllers/CloseSession";
 
 export default function UpperNavbar() {
-   VerifyTokenComponent();
+  VerifyTokenComponent();
 
   return (
     <div className="bg-white w-full">
       {/* Navbar login-registrarse */}
       <div className="flex justify-end mt-10 font-bold mr-20">
         <Link to="/tableusersdashboard">
-          <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium
-           text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 
-           group-hover:to-orange-400 hover:text-white dark:text-black+ focus:ring-4 focus:outline-none focus:ring-pink-200
-            dark:focus:ring-pink-800 mr-12">
-              <span className="relative px-5 py-2 transition-all ease-in duration-75 bg-white dark:bg-white rounded-md group-hover:bg-opacity-0">
+          <button className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
+                 focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mr-12">
               Usuarios
-              </span>
           </button>
         </Link>
 
         <Link to="/tableproductsdashboard">
-          <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium
-           text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 
-           group-hover:to-orange-400 hover:text-white dark:text-black focus:ring-4 focus:outline-none focus:ring-pink-200
-            dark:focus:ring-pink-800 mr-12">
-              <span className="relative px-5 py-2 transition-all ease-in duration-75 bg-white dark:bg-white rounded-md group-hover:bg-opacity-0">
+          <button className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
+                 focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mr-12">
               Productos
-              </span>
           </button>
         </Link>
-    
+
         <div className="mr-3 md:mr-10 font-bold">
           <Link to="/login">
-          <button
-          onClick={() => 
-            CloseSession()}
-            type="button"
-            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
+            <button
+              onClick={() => CloseSession()}
+              type="button"
+              className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
                  focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-          >
-            Cerrar Sesion
-          </button>
+            >
+              Cerrar Sesión
+            </button>
           </Link>
+        </div>
+
+        
+        <div className="flex items-center justify-center bg-black mr-3 md:mr-10 font-bold p-1 rounded-full me-2 mb-2">
+        <CircleUser size={24} color="#f0f0f0f0" strokeWidth={2} absoluteStrokeWidth /> 
+        <div className="ml-4">
+        <h1 className="text-white text-xs font-bold">JP</h1>
+        </div>
         </div>
       </div>
       <hr className="shadow-lg mt-9 relative" />

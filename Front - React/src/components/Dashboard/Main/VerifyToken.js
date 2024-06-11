@@ -31,3 +31,5 @@ useEffect(() => {
 }, [navigate]); // navigate como única dependencia para asegurar una única inicialización
 
 }
+
+
