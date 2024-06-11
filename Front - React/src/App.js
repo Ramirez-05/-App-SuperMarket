@@ -8,6 +8,7 @@ import Sidebar from './components/Dashboard/Main/Sidebar';
 import TableComponentProducts from './components/Dashboard/DataTables/ProductsDataTable';
 import TableComponentUsers from './components/Dashboard/DataTables/UserDataTable/TableComponentUser';
 import UsersDashboard from './components/UsersDashboard';
+import SettingsUser from './components/Dashboard/Main/ModalUser/SettingsUser';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/tableusersdashboard" element={<TableComponentUsers />} />
         <Route path="/" element={<Homepage />} />
         <Route path="/usersdashboard" element={<UsersDashboard />} />
+        <Route path="/settingsuser" element={<SettingsUser />} />
       </Routes>
     </Router>
   );

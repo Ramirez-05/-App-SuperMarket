@@ -3,8 +3,7 @@ import { CircleUser } from "lucide-react";
 import { Link } from "react-router-dom";
 import ContainerstatisticsMain from "../Containerstatistics/Containerstatistics";
 import VerifyTokenComponent from "./VerifyToken";
-import { CloseSession } from "../../../controllers/DeleteControllers/CloseSession";
-import { UserMenu } from "./ModalUser"; 
+import { UserMenu } from "./MenuUser"; 
 
 export default function UpperNavbar() {
   VerifyTokenComponent();
@@ -42,16 +41,6 @@ export default function UpperNavbar() {
           <button className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
                  focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 mr-4 md:mr-12">
             Productos
-          </button>
-        </Link>
-
-        <Link to="/login">
-          <button
-            onClick={() => CloseSession()}
-            type="button"
-            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none
-                   focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 mr-4 md:mr-12">
-            Cerrar Sesión
           </button>
         </Link>
 
