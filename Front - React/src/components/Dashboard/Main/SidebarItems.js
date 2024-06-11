@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Activity, Bell, User } from "lucide-react";
 import { SidebarContext } from "./Sidebar"; // Asegúrate de importar correctamente SidebarContext
 import SidebarItem from "./SidebarItem"; 
-
+//Este componente se encarga de enviar los items al (SidebarItem) que contiene la estructura.
 const SidebarItems = () => {
   const { expanded } = useContext(SidebarContext);
 

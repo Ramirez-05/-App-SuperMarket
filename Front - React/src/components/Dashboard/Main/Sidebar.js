@@ -3,8 +3,9 @@ import { createContext, useState } from "react";
 import UpperNavbar from "./UpperNavbar";
 import SidebarItems from "./SidebarItems"; // Asegúrate de importar SidebarItems
 
+//Contexto que envuelve todo el componente de Sidebar
 export const SidebarContext = createContext();
-
+//Funcion encargada de tener todo el contexto general y recibir el otro componente como un hijo.
 export default function Sidebar({ children }) {
   const [expanded, setExpanded] = useState(true);
 
@@ -34,7 +35,7 @@ export default function Sidebar({ children }) {
           </SidebarContext.Provider>
         </nav>
       </aside>
-      <UpperNavbar /> {/* Asegúrate de que UpperNavbar esté renderizado fuera del aside */}
+      <UpperNavbar />
     </div>
   );
 }

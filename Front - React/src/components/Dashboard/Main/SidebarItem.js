@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { SidebarContext } from "./Sidebar"; // Asegúrate de importar correctamente SidebarContext
-
+import { SidebarContext } from "./Sidebar"; 
+//Funcion que recibe y le da estructura de lista a el componente del Sidebar
 const SidebarItem = ({ icon, text, active, alert, expanded }) => {
   const { expanded: contextExpanded } = useContext(SidebarContext);
 
