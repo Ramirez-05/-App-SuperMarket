@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Auth } from '../../controllers/PostControllers/Auth';
 import { Link, useNavigate } from 'react-router-dom';
+import { showSuccessAlert } from '../../tools/Alerts/successAlert'; 
 import imglogin from '../../assets/imglogin.svg';
 
 export default function Login() {
@@ -25,10 +26,10 @@ export default function Login() {
       const response = await Auth(formData);
       if(response.role === 'Admin'){
         navigate("/admindashboard");
+        showSuccessAlert(response.message, response.status);
       } else {
         navigate("/usersdashboard");
       }
-      console.log(response);
     } catch (error) {
       console.log("Error al enviar datos", error);
       setError("Error al enviar datos. Por favor, inténtalo de nuevo.");
