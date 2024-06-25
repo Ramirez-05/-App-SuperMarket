@@ -29,10 +29,12 @@ export default function Login() {
         showSuccessAlert(response.message, response.status);
       } else {
         navigate("/usersdashboard");
+        showSuccessAlert(response.message, response.status);
       }
     } catch (error) {
       console.log("Error al enviar datos", error);
       setError("Error al enviar datos. Por favor, inténtalo de nuevo.");
+      showSuccessAlert("Datos incorrectos", "error");
     } finally {
       setLoading(false);
     }

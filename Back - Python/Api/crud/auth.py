@@ -47,7 +47,7 @@ def close_session(token: str, db: Session, response: Response):
             db.commit()
             # Elimina las cookies que sean iguales a las de la base de datos
             response.delete_cookie("ADT") 
-            return f"EL TOKEN ELIMINADO ES: {token_for_delete.token}"
+            return "{status: 'success', message: 'Sesión cerrada'}"
         else:
             raise HTTPException(status_code=404, detail="Token no encontrado")
     except Exception as e:
